@@ -440,6 +440,8 @@ exports.MsgCode = {
   CMD_C_SELECT_MENU_ITEM: 4266,
   MSG_C_END_ROUND: 517,
   MSG_YEAR_BOOK_2019: 2981,
+  TEST_MOVE_INFO:4620,
+  TEST_LOCATION_INFO:5011,
 };
 exports.toMsg = function (t) {
   for (var e in this.MsgCode) if (this.MsgCode[e] == t) return e;

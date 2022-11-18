@@ -25,7 +25,7 @@ function o() {
 }
 
 //读取1字节
-function c() {
+function getByte() {
   if (-1 == _) return 0;
   if (a.byteLength - _ < 1) {
     _ = -1;
@@ -37,7 +37,7 @@ function c() {
 }
 
 //读取2字节
-function l() {
+function getShort() {
   if (-1 == _) return 0;
   if (a.byteLength - _ < 2) {
     _ = -1;
@@ -58,7 +58,7 @@ function h() {
   return t;
 }
 //读取4字节
-function E() {
+function getLong() {
   if (-1 == _) return 0;
   if (a.byteLength - _ < 4) {
     _ = -1;
@@ -79,8 +79,8 @@ function I() {
   return t;
 }
 // 1字节+字符串 byteString
-function d() {
-  var t = c();
+function getByteString() {
+  var t = getByte();
   if (-1 == _) return "";
   if (a.byteLength - _ < t) {
     _ = -1;
@@ -94,7 +94,7 @@ function d() {
 }
 //2字节+字符串
 function u() {
-  var t = l();
+  var t = getShort();
   if (-1 == _) return "";
   if (a.byteLength - _ < t) {
     _ = -1;
@@ -107,25 +107,25 @@ function u() {
   return e;
 }
 function T(t) {
-  var e = l();
+  var e = getShort();
   if (!(-1 == _ || e <= 0))
     for (var n = 1; n <= e; ++n) {
-      var i = l();
+      var i = getShort();
       if (-1 == _) return;
-      var s = d();
+      var s = getByteString();
       if (-1 == _) return;
       t.set(i, s);
-      t.set("val_type_" + i, c());
+      t.set("val_type_" + i, getByte());
     }
 }
 function R(t, e, i) {
   void 0 === i && (i = !1);
   null == e && (e = "");
-  var s = l();
+  var s = getShort();
   if (!(-1 == _ || s <= 0))
     for (var r = 1; r <= s; ++r) {
-      var a = l(),
-        o = i ? c() : n.queryInt("val_type_" + a);
+      var a = getShort(),
+        o = i ? getByte() : n.queryInt("val_type_" + a);
       if (-1 == _) return;
       var T = 0;
       switch (o) {
@@ -134,7 +134,7 @@ function R(t, e, i) {
           break;
 
         case FIELD_UINT8:
-          T = c();
+          T = getByte();
           break;
 
         case FIELD_INT16:
@@ -142,15 +142,15 @@ function R(t, e, i) {
           break;
 
         case FIELD_UINT16:
-          T = l();
+          T = getShort();
           break;
 
         case FIELD_INT32:
-          T = E();
+          T = getLong();
           break;
 
         case FIELD_STRING:
-          T = d();
+          T = getByteString();
           break;
 
         case FIELD_LONG_STRING:
@@ -182,61 +182,61 @@ function g(t, e) {
   }
 }
 function L(t) {
-  var e = c();
+  var e = getByte();
   if (-1 != _)
     if (1 != e) {
       t.set("dye_index_dress", 0);
       if (2 == e) {
-        c();
-        t.set("hair_mask_dress", c());
-        t.set("hair_color_dress", d());
-        t.set("skin_mask_dress", c());
-        t.set("skin_color_dress", d());
-        t.set("ornament_mask_dress", c());
-        t.set("ornament_color_dress", d());
-        t.set("weapon_mask_dress", c());
-        t.set("weapon_color_dress", d());
-        t.set("clothe_mask_dress", c());
-        t.set("clothe_color_dress", d());
+        getByte();
+        t.set("hair_mask_dress", getByte());
+        t.set("hair_color_dress", getByteString());
+        t.set("skin_mask_dress", getByte());
+        t.set("skin_color_dress", getByteString());
+        t.set("ornament_mask_dress", getByte());
+        t.set("ornament_color_dress", getByteString());
+        t.set("weapon_mask_dress", getByte());
+        t.set("weapon_color_dress", getByteString());
+        t.set("clothe_mask_dress", getByte());
+        t.set("clothe_color_dress", getByteString());
       }
     } else {
-      t.set("dye_index_dress", l());
+      t.set("dye_index_dress", getShort());
       g(t, 1);
     }
 }
 function f(t) {
   t.set("use_new_blend_color", 0);
-  var e = c();
+  var e = getByte();
   if (-1 != _)
     if (1 != e) {
       t.set("dye_index", 0);
       if (2 == e) {
-        c();
-        t.set("hair_mask", c());
-        t.set("hair_color", d());
-        t.set("skin_mask", c());
-        t.set("skin_color", d());
-        t.set("ornament_mask", c());
-        t.set("ornament_color", d());
-        t.set("weapon_mask", c());
-        t.set("weapon_color", d());
-        t.set("clothe_mask", c());
-        t.set("clothe_color", d());
+        getByte();
+        t.set("hair_mask", getByte());
+        t.set("hair_color", getByteString());
+        t.set("skin_mask", getByte());
+        t.set("skin_color", getByteString());
+        t.set("ornament_mask", getByte());
+        t.set("ornament_color", getByteString());
+        t.set("weapon_mask", getByte());
+        t.set("weapon_color", getByteString());
+        t.set("clothe_mask", getByte());
+        t.set("clothe_color", getByteString());
       }
     } else {
-      t.set("dye_index", l());
+      t.set("dye_index", getShort());
       g(t);
     }
 }
 function S(t) {
-  t.set("ride_pet_mask_colors", d());
+  t.set("ride_pet_mask_colors", getByteString());
 }
 function p(t, e) {
   void 0 === e && (e = !1);
-  for (var n = l(), i = 0; i < n; ++i) {
-    var s = c(),
+  for (var n = getShort(), i = 0; i < n; ++i) {
+    var s = getByte(),
       r = "";
-    switch (c()) {
+    switch (getByte()) {
       case FIELDS_BASIC:
         R(t, null, e);
         continue;
@@ -249,10 +249,10 @@ function p(t, e) {
 }
 function m(t, e, n) {
   void 0 === n && (n = !1);
-  for (var i = l(), s = !1, r = 0; r < i; ++r) {
-    var _ = c(),
+  for (var i = getShort(), s = !1, r = 0; r < i; ++r) {
+    var _ = getByte(),
       a = "";
-    switch (c()) {
+    switch (getByte()) {
       case FIELDS_BASIC:
         R(t, null, n);
         continue;
@@ -274,44 +274,44 @@ function D(t, e, n) {
   for (var i = 0; i < e; ++i) {
     var s = new UtilMapping();
     s.absorbFields(t);
-    s.set("skill_no", l());
-    s.set("skill_attrib", E());
-    s.set("skill_name", d());
-    s.set("max_level", l());
-    s.set("skill_level", l());
-    s.set("skill_level_base", l());
-    s.set("skill_level_research", l());
-    s.set("level_improved", l());
-    s.set("skill_mana_cost", E());
-    s.set("skill_life_cost", E());
-    s.set("skill_essence_cost", l());
-    s.set("skill_anger_cost", l());
-    s.set("class", E());
-    s.set("subclass", E());
-    s.set("ladder", E());
-    s.set("passive_skill", c());
-    s.set("temp_skill", c());
-    s.set("skill_nimbus", E());
-    s.set("point", E());
-    s.set("max_point", E());
+    s.set("skill_no", getShort());
+    s.set("skill_attrib", getLong());
+    s.set("skill_name", getByteString());
+    s.set("max_level", getShort());
+    s.set("skill_level", getShort());
+    s.set("skill_level_base", getShort());
+    s.set("skill_level_research", getShort());
+    s.set("level_improved", getShort());
+    s.set("skill_mana_cost", getLong());
+    s.set("skill_life_cost", getLong());
+    s.set("skill_essence_cost", getShort());
+    s.set("skill_anger_cost", getShort());
+    s.set("class", getLong());
+    s.set("subclass", getLong());
+    s.set("ladder", getLong());
+    s.set("passive_skill", getByte());
+    s.set("temp_skill", getByte());
+    s.set("skill_nimbus", getLong());
+    s.set("point", getLong());
+    s.set("max_point", getLong());
     for (
-      var r = d(), _ = gfExplodeString(r, ","), a = _.length, o = 0;
+      var r = getByteString(), _ = gfExplodeString(r, ","), a = _.length, o = 0;
       o < a;
       ++o
     ) {
       var I = gfExplodeString(_[o], "=");
       2 == I.length && s.set("memo_" + I[0], I[1]);
     }
-    s.set("is_used", c());
-    var h = l();
+    s.set("is_used", getByte());
+    var h = getShort();
     s.set("cost_type_count", h);
     for (var u = 1; u <= h; u++) {
-      s.set("cost_type_" + u, d());
-      s.set("cost_point_" + u, E());
+      s.set("cost_type_" + u, getByteString());
+      s.set("cost_point_" + u, getLong());
     }
-    s.set("range", l());
-    s.set("max_range", l());
-    s.set("combat_desc", d());
+    s.set("range", getShort());
+    s.set("max_range", getShort());
+    s.set("combat_desc", getByteString());
     n.push(s);
   }
 }
@@ -322,29 +322,29 @@ function A(t, e) {
       return n < 0 ? e : cc.js.formatStr("inborn_%s_%d", t, n);
     };
   n = i("skill_name", e);
-  t.set(n, d());
+  t.set(n, getByteString());
   n = i("skill_class", e);
-  t.set(n, c());
+  t.set(n, getByte());
   n = i("subclass", e);
-  t.set(n, E());
+  t.set(n, getLong());
   n = i("skill_no", e);
-  t.set(n, l());
+  t.set(n, getShort());
   n = i("skill_level", e);
-  t.set(n, l());
+  t.set(n, getShort());
   n = i("stone_level", e);
-  t.set(n, l());
+  t.set(n, getShort());
   n = i("stone_color", e);
-  t.set(n, d());
+  t.set(n, getByteString());
   n = i("add_effect", e);
-  t.set(n, d());
+  t.set(n, getByteString());
 }
 function C(t) {
-  var e = c();
+  var e = getByte();
   t.set("hunshoushi_count", e);
   for (var n = 1; n <= e; ++n) {
-    t.set("hunshoushi_name_" + n, d());
-    t.set("hunshoushi_color_" + n, d());
-    t.set("hunshoushi_level_" + n, l());
+    t.set("hunshoushi_name_" + n, getByteString());
+    t.set("hunshoushi_color_" + n, getByteString());
+    t.set("hunshoushi_level_" + n, getShort());
   }
 }
 function F(t) {
@@ -352,7 +352,7 @@ function F(t) {
     MOUNT_TYPE_YL == t.queryInt("mount_type") &&
     0 == t.queryInt("eclosion_rank")
   ) {
-    var e = c();
+    var e = getByte();
     t.set("inborn_skill_count", e);
     for (var n = 0; n < e; ++n) A(t, n);
     C(t);
@@ -364,20 +364,20 @@ function y(t) {
     0 == t.queryInt("eclosion_rank")
   ) {
     C(t);
-    var e = l();
+    var e = getShort();
     t.set("inborn_skill_count", e);
     for (var n = 0; n < e; ++n) {
-      t.set("inborn_skill_name_" + n, d());
-      t.set("inborn_skill_level_" + n, l());
+      t.set("inborn_skill_name_" + n, getByteString());
+      t.set("inborn_skill_level_" + n, getShort());
     }
   }
 }
 function N(t) {
   if (!(o() <= 0)) {
-    var e = l();
+    var e = getShort();
     t.set("img_count", e);
     for (var n = 0; n < e; ++n) {
-      var i = E();
+      var i = getLong();
       if (a.byteLength - _ < i) {
         _ = -1;
         return;
@@ -389,33 +389,33 @@ function N(t) {
   }
 }
 function M(t) {
-  t.set("id", E());
-  t.set("setting", l());
-  t.set("portrait", E());
-  t.set("spine_brow", d());
-  t.set("pic_no", l());
-  t.set("name", d());
+  t.set("id", getLong());
+  t.set("setting", getShort());
+  t.set("portrait", getLong());
+  t.set("spine_brow", getByteString());
+  t.set("pic_no", getShort());
+  t.set("name", getByteString());
   t.set("content", u());
   N(t);
 }
 function w(t) {
-  var e = l();
+  var e = getShort();
   t.set("skill_count", e);
-  for (var n = 0; n < e; n++) t.set("skill_name_" + n, d());
-  e = l();
+  for (var n = 0; n < e; n++) t.set("skill_name_" + n, getByteString());
+  e = getShort();
   t.set("god_book_skill_count", e);
-  for (var i = 0; i < e; i++) t.set("god_book_skill_name_" + i, d());
+  for (var i = 0; i < e; i++) t.set("god_book_skill_name_" + i, getByteString());
 }
 function P(t) {
   for (var e = t.queryInt("skill_count"), n = 0; n < e; n++) {
-    t.set("skill_level_" + n, l());
-    t.set("class_" + n, E());
-    t.set("subclass_" + n, E());
-    t.set("ladder_" + n, E());
-    t.set("skill_nimbus_" + n, E());
-    t.set("point_" + n, E());
-    t.set("max_point_" + n, E());
-    var i = d();
+    t.set("skill_level_" + n, getShort());
+    t.set("class_" + n, getLong());
+    t.set("subclass_" + n, getLong());
+    t.set("ladder_" + n, getLong());
+    t.set("skill_nimbus_" + n, getLong());
+    t.set("point_" + n, getLong());
+    t.set("max_point_" + n, getLong());
+    var i = getByteString();
     if ("" != i)
       for (
         var s = gfExplodeLineToMap(i, ",", "="), r = s.getSortKeys(), _ = 0;
@@ -428,10 +428,10 @@ function P(t) {
 }
 function v(t, e) {
   void 0 === e && (e = !1);
-  var n = l();
+  var n = getShort();
   t.set("item_info_count", n);
   for (var i = 1; i <= n; i++) {
-    var s = l();
+    var s = getShort();
     t.set("query_info_type", s);
     var r = new UtilMapping(),
       _ = new UtilMapping();
@@ -440,7 +440,7 @@ function v(t, e) {
     else if (OBJECT_TYPE_PET == s) {
       p(r, e);
       R(_, e);
-      var a = l(),
+      var a = getShort(),
         o = [];
       D(t, a, o);
       r.set("skill_count", a);
@@ -449,12 +449,12 @@ function v(t, e) {
           var h = cc.js.formatStr("%s_%d", I, E);
           r.set(h, o[E].query(I));
         }
-      r.set("god_book_skill_count", l());
+      r.set("god_book_skill_count", getShort());
       O(r, !0);
       F(r);
     } else if (OBJECT_TYPE_CHILD == s) {
       p(r, e);
-      var u = l(),
+      var u = getShort(),
         T = [];
       D(t, u, T);
       r.set("skill_count", u);
@@ -463,9 +463,9 @@ function v(t, e) {
           var f = cc.js.formatStr("%s_%d", L, g);
           r.set(f, T[g].query(L));
         }
-      var S = c();
+      var S = getByte();
       r.set("child_book_count", S);
-      for (var A = 1; A <= S; ++A) r.set("child_book_name_" + A, d());
+      for (var A = 1; A <= S; ++A) r.set("child_book_name_" + A, getByteString());
     }
     t.set("basic_info_map_pointer_" + i, r);
     t.set("extra_info_map_pointer_" + i, _);
@@ -479,24 +479,24 @@ function O(t, e, n) {
     r < s;
     r++
   ) {
-    e && t.set("god_book_skill_name_" + r, d());
-    t.set("god_book_skill_level_" + r, l());
-    t.set("god_book_skill_used_" + r, c());
-    t.set("god_book_gift_" + r, c());
-    t.set("god_book_skill_nimbus_" + r, E());
-    t.set("god_book_skill_exp_" + r, E());
-    t.set("god_book_skill_exp_to_" + r, E());
-    t.set("god_book_color_" + r, d());
-    t.set("god_book_icon_" + r, E());
+    e && t.set("god_book_skill_name_" + r, getByteString());
+    t.set("god_book_skill_level_" + r, getShort());
+    t.set("god_book_skill_used_" + r, getByte());
+    t.set("god_book_gift_" + r, getByte());
+    t.set("god_book_skill_nimbus_" + r, getLong());
+    t.set("god_book_skill_exp_" + r, getLong());
+    t.set("god_book_skill_exp_to_" + r, getLong());
+    t.set("god_book_color_" + r, getByteString());
+    t.set("god_book_icon_" + r, getLong());
     if (i) {
-      t.set("gbs_activated_" + r, c());
-      var _ = c();
+      t.set("gbs_activated_" + r, getByte());
+      var _ = getByte();
       t.set("gbs_prop_count_" + r, _);
       for (var a = 1; a <= _; ++a) {
-        t.set(cprintf("gbs_prop_name_%d_%d", r, a), d());
-        t.set(cprintf("gbs_prop_base_%d_%d", r, a), E());
-        t.set(cprintf("gbs_prop_total_%d_%d", r, a), E());
-        t.set(cprintf("gbs_prop_max_%d_%d", r, a), E());
+        t.set(cprintf("gbs_prop_name_%d_%d", r, a), getByteString());
+        t.set(cprintf("gbs_prop_base_%d_%d", r, a), getLong());
+        t.set(cprintf("gbs_prop_total_%d_%d", r, a), getLong());
+        t.set(cprintf("gbs_prop_max_%d_%d", r, a), getLong());
       }
     } else {
       var o = new UtilMapping();
@@ -525,27 +525,27 @@ function O(t, e, n) {
 }
 function B(t) {
   var e = new UtilMapping();
-  e.set("id", E());
+  e.set("id", getLong());
   e.set("syn_msg", t ? TRUE : FALSE);
   R(e);
   return e;
 }
 function b(t) {
   var e = new UtilMapping();
-  e.set("id", E());
-  e.set("partial_update", c());
+  e.set("id", getLong());
+  e.set("partial_update", getByte());
   e.set("syn_msg", t ? TRUE : FALSE);
   R(e);
   return e;
 }
 function G(t) {
   var e = [],
-    n = l();
+    n = getShort();
   if (-1 == _ || n <= 0) return e;
   for (var i = 1; i <= n; ++i) {
     var s = new UtilMapping();
-    s.set("no", c());
-    s.set("id", E());
+    s.set("no", getByte());
+    s.set("id", getLong());
     s.set("syn_msg", t ? TRUE : FALSE);
     p(s);
     e.push(s);
@@ -554,12 +554,12 @@ function G(t) {
 }
 function U(t) {
   var e = [],
-    n = l();
+    n = getShort();
   if (-1 == _ || n <= 0) return e;
   for (var i = 1; i <= n; ++i) {
     var s = new UtilMapping();
-    s.set("no", c());
-    s.set("id", E());
+    s.set("no", getByte());
+    s.set("id", getLong());
     s.set("syn_msg", t ? TRUE : FALSE);
     p(s);
     e.push(s);
@@ -568,8 +568,8 @@ function U(t) {
 }
 function x(t) {
   var e = new UtilMapping();
-  e.set("id", E());
-  var n = l();
+  e.set("id", getLong());
+  var n = getShort();
   if (-1 == _ || n <= 0) return e;
   var i = [];
   D(e, n, i);
@@ -578,113 +578,113 @@ function x(t) {
 }
 function k() {
   var t = [],
-    e = c();
+    e = getByte();
   if (-1 == _ || e <= 0) return t;
   for (var n = 1; n <= e; ++n) {
     var i = new UtilMapping();
-    i.set("id", E());
-    i.set("leader", l());
-    i.set("weapon_icon", E());
-    i.set("pos", l());
+    i.set("id", getLong());
+    i.set("leader", getShort());
+    i.set("weapon_icon", getLong());
+    i.set("pos", getShort());
     R(i);
-    i.set("suit_light_effect", E());
-    i.set("org_icon", E());
-    i.set("suit_icon", E());
-    i.set("pan_icon", E());
-    i.set("pet_icon", E());
-    i.set("shadow_icon", E());
-    i.set("shelter_icon", E());
-    i.set("show_icon", E());
-    i.set("show_prop", l());
-    i.set("pan_prop", l());
+    i.set("suit_light_effect", getLong());
+    i.set("org_icon", getLong());
+    i.set("suit_icon", getLong());
+    i.set("pan_icon", getLong());
+    i.set("pet_icon", getLong());
+    i.set("shadow_icon", getLong());
+    i.set("shelter_icon", getLong());
+    i.set("show_icon", getLong());
+    i.set("show_prop", getShort());
+    i.set("pan_prop", getShort());
     L(i);
     f(i);
     S(i);
-    i.set("child_id", E());
-    i.set("child_icon", E());
-    i.set("soul_id", E());
-    i.set("soul_icon", E());
-    i.set("ming_pai", d());
-    gfIsJdDist() || i.set("religion", c());
-    i.set("polar", c());
+    i.set("child_id", getLong());
+    i.set("child_icon", getLong());
+    i.set("soul_id", getLong());
+    i.set("soul_icon", getLong());
+    i.set("ming_pai", getByteString());
+    gfIsJdDist() || i.set("religion", getByte());
+    i.set("polar", getByte());
     t.push(i);
   }
   return t;
 }
 function Y() {
   var t = new UtilMapping();
-  t.set("attacker_id", E());
-  t.set("action", l());
-  t.set("victim_id", E());
-  t.set("para", E());
+  t.set("attacker_id", getLong());
+  t.set("action", getShort());
+  t.set("victim_id", getLong());
+  t.set("para", getLong());
   return t;
 }
 function q() {
   var t = new UtilMapping();
-  t.set("id", E());
-  t.set("hitter_id", E());
-  t.set("para_ex", E());
-  t.set("hitter_child_icon", E());
-  t.set("victim_child_icon", E());
-  t.set("missed", l());
-  t.set("para", l());
-  t.set("damage_type", E());
-  t.set("para_ex2", E());
-  t.set("para_ex3", E());
-  t.set("ctl", l());
-  t.set("double_hit_index", l());
+  t.set("id", getLong());
+  t.set("hitter_id", getLong());
+  t.set("para_ex", getLong());
+  t.set("hitter_child_icon", getLong());
+  t.set("victim_child_icon", getLong());
+  t.set("missed", getShort());
+  t.set("para", getShort());
+  t.set("damage_type", getLong());
+  t.set("para_ex2", getLong());
+  t.set("para_ex3", getLong());
+  t.set("ctl", getShort());
+  t.set("double_hit_index", getShort());
   return t;
 }
 function H() {
   var t = new UtilMapping();
-  t.set("check_enable", c());
-  t.set("id", E());
-  t.set("hitter_id", E());
-  t.set("point", E());
-  t.set("child_point", E());
-  t.set("effect_no", E());
-  t.set("damage_type", E());
-  t.set("extra_type", E());
+  t.set("check_enable", getByte());
+  t.set("id", getLong());
+  t.set("hitter_id", getLong());
+  t.set("point", getLong());
+  t.set("child_point", getLong());
+  t.set("effect_no", getLong());
+  t.set("damage_type", getLong());
+  t.set("extra_type", getLong());
   return t;
 }
 function W() {
   var t = new UtilMapping();
-  t.set("id", E());
-  for (var e = l(), n = [], i = 1; i <= e; ++i) n.push(E());
+  t.set("id", getLong());
+  for (var e = getShort(), n = [], i = 1; i <= e; ++i) n.push(getLong());
   t.set("status", n);
   return t;
 }
 function V() {
   var t = [],
     e = gfIsJdDist(),
-    n = E(),
+    n = getLong(),
     i = 0;
-  e || (i = E());
-  for (var s = E(), r = l(), o = !1, c = l(), I = 0; I < c; ++I) {
+  e || (i = getLong());
+  for (var s = getLong(), r = getShort(), o = !1, c = getShort(), I = 0; I < c; ++I) {
     var h = new UtilMapping();
     h.set("hitter_id", n);
     h.set("damage_type", s);
     h.set("double_hit_index", r);
     e || h.set("main_id", i);
-    h.set("id", E());
-    h.set("child_icon", E());
+    h.set("id", getLong());
+    h.set("child_icon", getLong());
     I + 1 >= c && h.set("main_target", 1);
     h.set("missed", 1);
     t.push(h);
   }
   for (var d = 0; d < c; ++d)
     if (a.byteLength - _ > 0) {
-      t[d].set("missed", l());
+      t[d].set("missed", getShort());
       t[d].set("can_show_magic_stunt", o ? 0 : 1);
       4 == t[d].query("missed") && (o = !0);
     }
   return t;
 }
 function X() {
-  for (var t = [], e = c(), n = c(), i = c(), s = 0; s < i; ++s) {
+  for (var t = [], e = getByte(), n = getByte(), i = getByte(), s = 0; s < i; ++s) {
     var r = new UtilMapping();
     r.set("seq", e);
-    r.set("id", E());
+    r.set("id", getLong());
     r.set("partial_update", n);
     R(r);
     t.push(r);
@@ -693,7 +693,7 @@ function X() {
 }
 function K() {
   for (
-    var t = [], e = E(), n = E(), i = E(), s = l(), r = l(), _ = 0;
+    var t = [], e = getLong(), n = getLong(), i = getLong(), s = getShort(), r = getShort(), _ = 0;
     _ < r;
     ++_
   ) {
@@ -702,97 +702,121 @@ function K() {
     a.set("main_victim_id", n);
     a.set("damage_type", i);
     a.set("double_hit_index", s);
-    a.set("id", E());
-    a.set("missed", l());
+    a.set("id", getLong());
+    a.set("missed", getShort());
     t.push(a);
   }
   return t;
 }
 function j(t) {
   var e = gfIsJdDist();
-  t.set("id", E());
+  t.set("id", getLong());
   R(t);
-  t.set("pos_x", l());
-  t.set("pos_y", l());
-  t.set("map_id", E());
-  t.set("map_index", E());
-  t.set("map_name", d());
-  t.set("team_status", c());
-  t.set("mobile_client", c());
-  t.set("gold_finger", c());
-  t.set("source_map_name", d());
-  t.set("obj_type", E());
-  t.set("fuxi_mingw", d());
-  t.set("fuxi_mingw_level", E());
-  t.set("fuxi_zhenx_effect", d());
-  t.set("change_icon", E());
-  t.set("makeup/ck", c());
-  t.set("makeup/db", c());
-  t.set("in_wuyou", c());
-  e || t.set("is_year_insider", c());
-  t.set("org_icon", E());
-  t.set("show_icon", E());
-  t.set("weapon_icon", E());
+  t.set("pos_x", getShort());
+  t.set("pos_y", getShort());
+  t.set("map_id", getLong());
+  t.set("map_index", getLong());
+  t.set("map_name", getByteString());
+  t.set("team_status", getByte());
+  t.set("mobile_client", getByte());
+  t.set("gold_finger", getByte());
+  t.set("source_map_name", getByteString());
+  t.set("obj_type", getLong());
+  t.set("fuxi_mingw", getByteString());
+  t.set("fuxi_mingw_level", getLong());
+  t.set("fuxi_zhenx_effect", getByteString());
+  t.set("change_icon", getLong());
+  t.set("makeup/ck", getByte());
+  t.set("makeup/db", getByte());
+  t.set("in_wuyou", getByte());
+  e || t.set("is_year_insider", getByte());
+  t.set("org_icon", getLong());
+  t.set("show_icon", getLong());
+  t.set("weapon_icon", getLong());
   t.set("show_prop", SHOW_WEAPON);
-  t.set("pet_icon", E());
-  t.set("shadow_icon", E());
-  t.set("shelter_icon", E());
+  t.set("pet_icon", getLong());
+  t.set("shadow_icon", getLong());
+  t.set("shelter_icon", getLong());
   t.queryInt("pet_icon") && t.set("show_prop", SHOW_MOUNT);
-  t.set("dress_icon", E());
+  t.set("dress_icon", getLong());
   f(t);
   S(t);
   L(t);
-  t.set("card_name", d());
-  t.set("card_end_time", E());
+  t.set("card_name", getByteString());
+  t.set("card_end_time", getLong());
 }
 function J(t) {
-  var e = l();
+  var e = getShort();
   t.set("skill_count", e);
   for (var n = [], i = 0; i < e; i++) {
     var s = new UtilMapping();
-    s.set("skill_name", d());
-    s.set("skill_id", d());
-    s.set("skill_level", l());
-    s.set("skill_used", c());
-    s.set("skill_class", E());
-    s.set("skill_sub_class", E());
-    s.set("skill_ladder", E());
+    s.set("skill_name", getByteString());
+    s.set("skill_id", getByteString());
+    s.set("skill_level", getShort());
+    s.set("skill_used", getByte());
+    s.set("skill_class", getLong());
+    s.set("skill_sub_class", getLong());
+    s.set("skill_ladder", getLong());
     n.push(s);
   }
   t.set("skill", n);
-  t.set("org_icon", E());
-  t.set("weapon_icon", E());
-  t.set("suit_icon", E());
-  t.set("act_type", c());
+  t.set("org_icon", getLong());
+  t.set("weapon_icon", getLong());
+  t.set("suit_icon", getLong());
+  t.set("act_type", getByte());
 }
 function Q(t) {
-  t.set("ban_life", c());
-  t.set("ban_phy_power", c());
-  t.set("ban_mag_power", c());
-  t.set("ban_def", c());
-  t.set("ban_speed", c());
-  t.set("fsl_draw_free_time", E());
-  t.set("lss_draw_free_time", E());
+  t.set("ban_life", getByte());
+  t.set("ban_phy_power", getByte());
+  t.set("ban_mag_power", getByte());
+  t.set("ban_def", getByte());
+  t.set("ban_speed", getByte());
+  t.set("fsl_draw_free_time", getLong());
+  t.set("lss_draw_free_time", getLong());
 }
 var Z = {
+  TEST_LOCATION_INFO:function(){
+    var data = new UtilMapping();
+    data.set("id",getLong());
+    data.set("x",getShort());
+    data.set("y",getShort());
+    data.set("dir",getShort());
+    return data; 
+  },
+  TEST_MOVE_INFO:function(){
+    var t = new UtilMapping();
+    t.set("id",getLong());
+    t.set("map_id",getLong());
+    t.set("count",getShort());
+    var cnt = t.query("count");
+    console.log(cnt);
+    for (var i=0;i<cnt;i++){
+      t.set("x"+i , getShort());
+      t.set("y"+i , getShort());
+    }
+    t.set("dir" , getShort());
+    t.set("send_time" , getLong());
+    t.set("last_step_time" , getLong());
+    return t; 
+  },
   CMD_C_DO_ACTION_1: function() {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("victim_id", E());
-    t.set("action", E());
-    t.set("para", E());
-    t.set("para_ex1", d());
-    t.set("para_ex2", d());
-    t.set("para_ex3", d());
-    t.set("skill_talk", d());
+    t.set("id", getLong());
+    t.set("victim_id", getLong());
+    t.set("action", getLong());
+    t.set("para", getLong());
+    t.set("para_ex1", getByteString());
+    t.set("para_ex2", getByteString());
+    t.set("para_ex3", getByteString());
+    t.set("skill_talk", getByteString());
 
     return t;
   },
   CMD_GENERAL_NOTIFY: function() {
     var t = new UtilMapping();
-    t.set("type", l());
-    t.set("para1", d());
-    t.set("para2", d());
+    t.set("type", getShort());
+    t.set("para1", getByteString());
+    t.set("para2", getByteString());
     return t;
   },
   MSG_ANSWER_FIELDS: function () {
@@ -804,79 +828,79 @@ var Z = {
   },
   MSG_REPLY_ECHO: function () {
     var t = new UtilMapping();
-    t.set("time", E());
-    t.set("server_time_offset", E());
+    t.set("time", getLong());
+    t.set("server_time_offset", getLong());
     return t;
   },
   MSG_L_JOIN_QUEUE: function () {
     var t = new UtilMapping();
-    t.set("cookie", d());
-    t.set("prior_number", E());
-    t.set("wait_time", E());
-    t.set("reconnect", c());
+    t.set("cookie", getByteString());
+    t.set("prior_number", getLong());
+    t.set("wait_time", getLong());
+    t.set("reconnect", getByte());
     return t;
   },
   MSG_L_CHECK_USER_DATA_EX: function () {
     var t = new UtilMapping();
-    t.set("open_pwd_guard", c());
-    t.set("qr_code_login", c());
-    t.set("cookie", d());
+    t.set("open_pwd_guard", getByte());
+    t.set("qr_code_login", getByte());
+    t.set("cookie", getByteString());
     return t;
   },
   MSG_L_AUTH: function () {
     var t = new UtilMapping();
-    t.set("result", E());
-    t.set("auth_key", E());
+    t.set("result", getLong());
+    t.set("auth_key", getLong());
     t.set("msg", u());
     return t;
   },
   MSG_L_WEGAME_AUTH: function () {
     var t = new UtilMapping();
-    t.set("result", E());
-    t.set("auth_key", E());
+    t.set("result", getLong());
+    t.set("auth_key", getLong());
     t.set("msg", u());
     return t;
   },
   MSG_L_GET_QR_CODE_INFO: function () {
     var t = new UtilMapping();
-    t.set("qr_code_id", d());
-    t.set("my_qr_code", d());
-    t.set("countdown", l());
+    t.set("qr_code_id", getByteString());
+    t.set("my_qr_code", getByteString());
+    t.set("countdown", getShort());
     return t;
   },
   MSG_L_LOGIN_BY_QR_CODE: function () {
     var t = new UtilMapping();
-    t.set("qr_code_id", d());
-    t.set("account", d());
+    t.set("qr_code_id", getByteString());
+    t.set("account", getByteString());
     return t;
   },
   MSG_L_SERVER_LIST: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (-1 == _ || e <= 0) return t;
     for (var n = 0; n < e; ++n) {
       var i = new UtilMapping();
-      i.set("server", d());
-      i.set("ip", d());
+      i.set("server", getByteString());
+      i.set("ip", getByteString());
       t.push(i);
     }
     if (-1 == _) return t;
-    for (var s = 0; s < e; ++s) t[s].set("status", l());
+    for (var s = 0; s < e; ++s) t[s].set("status", getShort());
     return t;
   },
   MSG_L_AGENT_RESULT: function () {
     var t = new UtilMapping();
-    t.set("result", E());
-    t.set("privilege", l());
-    t.set("ip", d());
-    t.set("port", l());
-    t.set("seed", E());
-    t.set("msg", d());
+    t.set("result", getLong());
+    t.set("privilege", getShort());
+    t.set("ip", getByteString());
+    t.set("port", getShort());
+    t.set("seed", getLong());
+    t.set("msg", getByteString());
     return t;
   },
   MSG_EXISTED_CHAR_LIST: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (-1 == _ || e <= 0) return t;
     for (var n = 1; n <= e; ++n) {
       var i = new UtilMapping();
@@ -887,21 +911,21 @@ var Z = {
   },
   MSG_ENTER_GAME: function () {
     var t = new UtilMapping();
-    t.set("flag", l());
-    t.set("dist", d());
-    t.set("server_name", d());
-    t.set("server_time", d());
-    t.set("server_time_offset", E());
-    t.set("server_time_zone", E());
-    t.set("dist_no", E());
-    t.set("is_level_dist", c());
+    t.set("flag", getShort());
+    t.set("dist", getByteString());
+    t.set("server_name", getByteString());
+    t.set("server_time", getByteString());
+    t.set("server_time_offset", getLong());
+    t.set("server_time_zone", getLong());
+    t.set("dist_no", getLong());
+    t.set("is_level_dist", getByte());
     return t;
   },
   MSG_DIALOG_OK: function () {
     var t = new UtilMapping();
     t.set("text", u());
-    t.set("active", l());
-    t.set("channel", l());
+    t.set("active", getShort());
+    t.set("channel", getShort());
     return t;
   },
   MSG_UPDATE: function (t) {
@@ -912,14 +936,14 @@ var Z = {
   },
   MSG_SET_CURRENT_PET: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("pet_status", l());
+    t.set("id", getLong());
+    t.set("pet_status", getShort());
     return t;
   },
   MSG_SET_OWNER: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("owner_id", E());
+    t.set("id", getLong());
+    t.set("owner_id", getLong());
     return t;
   },
   MSG_UPDATE_PETS: function (t) {
@@ -930,12 +954,12 @@ var Z = {
   },
   MSG_INVENTORY: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (-1 == _ || e <= 0) return t;
     for (var n = 1; n <= e; ++n) {
       var i = new UtilMapping(),
         s = new UtilMapping(),
-        r = E();
+        r = getLong();
       i.set("pos", r);
       s.set("pos", r);
       m(i, s);
@@ -945,19 +969,19 @@ var Z = {
   },
   MSG_UPDATE_INV_AMOUNT: function () {
     var t = new UtilMapping();
-    t.set("pos", E());
-    t.set("amount", l());
+    t.set("pos", getLong());
+    t.set("amount", getShort());
     return t;
   },
   MSG_CONTAINER_INVALID_RANGE: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (-1 == _ || e <= 0) return t;
     for (var n = 1; n <= e; ++n) {
       var i = new UtilMapping();
-      i.set("start_pos", l());
-      i.set("range", l());
-      i.set("type", d());
+      i.set("start_pos", getShort());
+      i.set("range", getShort());
+      i.set("type", getByteString());
       t.push(i);
     }
     return t;
@@ -965,7 +989,7 @@ var Z = {
   MSG_INVENTORY_ITEM: function () {
     var t = new UtilMapping(),
       e = new UtilMapping(),
-      n = E();
+      n = getLong();
     t.set("pos", n);
     e.set("pos", n);
     m(t, e);
@@ -976,60 +1000,60 @@ var Z = {
   },
   MSG_FINISH_SORT_PACK: function () {
     var t = new UtilMapping();
-    t.set("start_range", c());
+    t.set("start_range", getByte());
     return t;
   },
   MSG_PROMPT_BEFORE_LEAVE: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (e <= 0) return t;
     for (var n = 0; n < e; n++) {
       var i = new UtilMapping();
       i.set("count", e);
-      i.set("name", d());
-      i.set("total_times", l());
-      i.set("times", l());
-      i.set("path", d());
-      i.set("start_time", E());
-      i.set("end_time", E());
-      i.set("gray", c());
-      i.set("vitality", l());
-      i.set("max_vitality", l());
-      i.set("sd_left_point", d());
-      i.set("bounty_num", E());
-      i.set("bounty_type", c());
-      i.set("bounty_got", c());
+      i.set("name", getByteString());
+      i.set("total_times", getShort());
+      i.set("times", getShort());
+      i.set("path", getByteString());
+      i.set("start_time", getLong());
+      i.set("end_time", getLong());
+      i.set("gray", getByte());
+      i.set("vitality", getShort());
+      i.set("max_vitality", getShort());
+      i.set("sd_left_point", getByteString());
+      i.set("bounty_num", getLong());
+      i.set("bounty_type", getByte());
+      i.set("bounty_got", getByte());
       t.push(i);
     }
-    e = l();
+    e = getShort();
     var s = new UtilMapping();
     s.set("week_recommend_count", e);
-    for (var r = 0; r < e; r++) s.set("name" + r, d());
+    for (var r = 0; r < e; r++) s.set("name" + r, getByteString());
     t.push(s);
     return t;
   },
   MSG_TASK_PROMPT: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (e <= 0) return t;
     for (var n = 0; n < e; n++) {
       var i = new UtilMapping();
       i.set("count", e);
-      i.set("task_type", d());
+      i.set("task_type", getByteString());
       i.set("task_desc", u());
       i.set("task_prompt", u());
       i.set("task_tip", u());
       i.set("task_state", u());
-      i.set("refresh", l());
-      i.set("common_type", c());
-      i.set("owner_type", c());
-      i.set("need_show_tip", c());
-      i.set("difficulty", c());
-      i.set("suggest_team", d());
-      i.set("suggest_level", d());
+      i.set("refresh", getShort());
+      i.set("common_type", getByte());
+      i.set("owner_type", getByte());
+      i.set("need_show_tip", getByte());
+      i.set("difficulty", getByte());
+      i.set("suggest_team", getByteString());
+      i.set("suggest_level", getByteString());
       i.set("task_reward", u());
-      i.set("task_class", d());
-      i.set("task_prop", E());
+      i.set("task_class", getByteString());
+      i.set("task_prop", getLong());
       i.set("syn_msg", !1);
       t.push(i);
     }
@@ -1037,101 +1061,101 @@ var Z = {
   },
   MSG_TIME_LUCK_INFO: function () {
     var t = new UtilMapping(),
-      e = c();
+      e = getByte();
     t.set("task_count", e);
     for (var n = 0; n < e; ++n) {
-      t.set("task_no_" + n, c());
-      t.set("task_name_" + n, d());
-      t.set("task_path_" + n, d());
-      t.set("task_tip_" + n, d());
-      t.set("task_finish_times_" + n, c());
-      t.set("task_max_times_" + n, c());
-      t.set("flag_" + n, E());
+      t.set("task_no_" + n, getByte());
+      t.set("task_name_" + n, getByteString());
+      t.set("task_path_" + n, getByteString());
+      t.set("task_tip_" + n, getByteString());
+      t.set("task_finish_times_" + n, getByte());
+      t.set("task_max_times_" + n, getByte());
+      t.set("flag_" + n, getLong());
     }
-    t.set("task_pet_name", d());
-    t.set("task_pet_desc", d());
-    t.set("task_pet_get", c());
-    t.set("task_polar_name", d());
-    t.set("task_polar_desc", d());
-    t.set("task_polar_get", c());
+    t.set("task_pet_name", getByteString());
+    t.set("task_pet_desc", getByteString());
+    t.set("task_pet_get", getByte());
+    t.set("task_polar_name", getByteString());
+    t.set("task_polar_desc", getByteString());
+    t.set("task_polar_get", getByte());
     return t;
   },
   MSG_COMPACT_TIME_LUCK_INFO: function () {
     var t = new UtilMapping();
-    t.set("shi_chen", d());
-    t.set("next_shi_chen_time", E());
-    t.set("luck", d());
+    t.set("shi_chen", getByteString());
+    t.set("next_shi_chen_time", getLong());
+    t.set("luck", getByteString());
     return t;
   },
   MSG_SERVICE_LOG: function () {
     var t = new UtilMapping();
-    t.set("service_name", d());
-    t.set("desc", d());
+    t.set("service_name", getByteString());
+    t.set("desc", getByteString());
     t.set("log", u());
     t.set("task_state", u());
-    t.set("refresh", l());
-    t.set("difficulty", c());
-    t.set("suggest_team", d());
-    t.set("suggest_level", d());
+    t.set("refresh", getShort());
+    t.set("difficulty", getByte());
+    t.set("suggest_team", getByteString());
+    t.set("suggest_level", getByteString());
     t.set("task_reward", u());
-    t.set("task_class", d());
-    t.set("task_prop", E());
+    t.set("task_class", getByteString());
+    t.set("task_prop", getLong());
     return t;
   },
   MSG_C_START_COMBAT: function () {
     var t = new UtilMapping();
-    t.set("flag", l());
-    t.set("combat_type", E());
-    t.set("combat_mode", E());
-    t.set("fight_back_no", E());
-    t.set("play_ani", c());
-    t.set("is_pvp", c());
-    t.set("question", E());
+    t.set("flag", getShort());
+    t.set("combat_type", getLong());
+    t.set("combat_mode", getLong());
+    t.set("fight_back_no", getLong());
+    t.set("play_ani", getByte());
+    t.set("is_pvp", getByte());
+    t.set("question", getLong());
     return t;
   },
   MSG_C_END_COMBAT: function () {
     var t = new UtilMapping();
-    t.set("flag", l());
+    t.set("flag", getShort());
     t.set("fight_type", 1);
     return t;
   },
   MSG_LC_START_LOOKON: function () {
     var t = new UtilMapping();
-    t.set("flag", c());
-    t.set("name", d());
-    t.set("fight_back_no", E());
-    t.set("lookon_type", c());
-    t.set("combat_type", E());
-    t.set("is_pvp", c());
-    t.set("friend_leader_pos", c());
-    t.set("opponent_leader_pos", c());
+    t.set("flag", getByte());
+    t.set("name", getByteString());
+    t.set("fight_back_no", getLong());
+    t.set("lookon_type", getByte());
+    t.set("combat_type", getLong());
+    t.set("is_pvp", getByte());
+    t.set("friend_leader_pos", getByte());
+    t.set("opponent_leader_pos", getByte());
     return t;
   },
   MSG_LC_INIT_STATUS: function () {
     var t = [],
-      e = c();
+      e = getByte();
     if (-1 == _ || e <= 0) return t;
     for (var n = 1; n <= e; ++n) {
       var i = new UtilMapping();
-      i.set("id", E());
-      var s = l();
+      i.set("id", getLong());
+      var s = getShort();
       if (-1 == _ || s <= 0) return t;
-      for (var r = [], a = 1; a <= s; ++a) r.push(E());
+      for (var r = [], a = 1; a <= s; ++a) r.push(getLong());
       i.set("status", r);
-      i.set("die", l());
+      i.set("die", getShort());
       t.push(i);
     }
     return t;
   },
   MSG_LC_COMMAND_ACCEPTED: function () {
     var t = new UtilMapping();
-    t.set("result", c());
+    t.set("result", getByte());
     return t;
   },
   MSG_LC_END_LOOKON: function () {
     var t = new UtilMapping();
     t.set("fight_type", 2);
-    t.set("clear_allact", c());
+    t.set("clear_allact", getByte());
     return t;
   },
   MSG_C_FRIENDS: function () {
@@ -1148,115 +1172,115 @@ var Z = {
   },
   MSG_C_WAIT_COMMAND: function () {
     var t = new UtilMapping();
-    t.set("menu", l());
-    t.set("id", E());
-    t.set("time", l());
-    t.set("question", E());
-    t.set("cur_round", l());
+    t.set("menu", getShort());
+    t.set("id", getLong());
+    t.set("time", getShort());
+    t.set("question", getLong());
+    t.set("cur_round", getShort());
     return t;
   },
   MSG_LC_WAIT_COMMAND: function () {
     var t = new UtilMapping();
-    t.set("menu", l());
-    t.set("id", E());
-    t.set("time", l());
-    t.set("cur_round", l());
-    t.set("can_oper", c());
+    t.set("menu", getShort());
+    t.set("id", getLong());
+    t.set("time", getShort());
+    t.set("cur_round", getShort());
+    t.set("can_oper", getByte());
     return t;
   },
   MSG_C_ACCEPTED_COMMAND: function () {
     var t = new UtilMapping();
-    t.set("me_accepted", c());
-    t.set("pet_accepted", c());
+    t.set("me_accepted", getByte());
+    t.set("pet_accepted", getByte());
     return t;
   },
   MSG_C_LEAVE_AT_ONCE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_LC_LEAVE_AT_ONCE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_C_COMMAND_ACCEPTED: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("result", l());
+    t.set("id", getLong());
+    t.set("result", getShort());
     return t;
   },
   MSG_C_REFRESH_PET_LIST: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (-1 == _ || e <= 0) return t;
     for (var n = 1; n <= e; ++n) {
       var i = new UtilMapping();
-      i.set("id", E());
+      i.set("id", getLong());
       t.push(i);
     }
     return t;
   },
   MSG_C_REFRESH_CHILD_LIST: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (-1 == _ || e <= 0) return t;
     for (var n = 1; n <= e; ++n) {
       var i = new UtilMapping();
-      i.set("id", E());
+      i.set("id", getLong());
       t.push(i);
     }
     return t;
   },
   MSG_C_SANDGLASS: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("show", l());
+    t.set("id", getLong());
+    t.set("show", getShort());
     return t;
   },
   MSG_LC_SANDGLASS: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("show", l());
+    t.set("id", getLong());
+    t.set("show", getShort());
     return t;
   },
   MSG_C_CHAR_OFFLINE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("offline", l());
+    t.set("id", getLong());
+    t.set("offline", getShort());
     return t;
   },
   MSG_LC_CHAR_OFFLINE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("offline", l());
+    t.set("id", getLong());
+    t.set("offline", getShort());
     return t;
   },
   MSG_GODBOOK_EFFECT_NORMAL: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("effect_no", l());
+    t.set("id", getLong());
+    t.set("effect_no", getShort());
     return t;
   },
   MSG_GRAY_COMBAT_MENU: function () {
     var t = new UtilMapping();
-    t.set("char_gray_item", l());
-    t.set("pet_gray_item", l());
+    t.set("char_gray_item", getShort());
+    t.set("pet_gray_item", getShort());
     return t;
   },
   MSG_C_DIRECT_UPDATE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     R(t);
     return t;
   },
   MSG_C_DIRECT_OPPONENT_INFO: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (-1 == _ || e <= 0) return t;
     for (var n = 1; n <= e; ++n) {
       var i = new UtilMapping();
-      i.set("id", E());
+      i.set("id", getLong());
       R(i);
       t.push(i);
     }
@@ -1264,10 +1288,10 @@ var Z = {
   },
   MSG_SKILL_FROZEN_LIST: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    var e = c();
+    t.set("id", getLong());
+    var e = getByte();
     if (-1 == _ || e <= 0) return t;
-    for (var n = [], i = 1; i <= e; ++i) n.push(E());
+    for (var n = [], i = 1; i <= e; ++i) n.push(getLong());
     t.set("skill_no", n);
     return t;
   },
@@ -1285,14 +1309,14 @@ var Z = {
   },
   MSG_C_FLEE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("success", c());
+    t.set("id", getLong());
+    t.set("success", getByte());
     return t;
   },
   MSG_LC_FLEE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("success", c());
+    t.set("id", getLong());
+    t.set("success", getByte());
     return t;
   },
   MSG_C_LIFE_DELTA: function () {
@@ -1309,80 +1333,80 @@ var Z = {
   },
   MSG_C_ANGER_DELTA: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("anger_delta", E());
+    t.set("id", getLong());
+    t.set("anger_delta", getLong());
     return t;
   },
   MSG_C_CHAR_DIED: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("shake_back", c());
+    t.set("id", getLong());
+    t.set("shake_back", getByte());
     return t;
   },
   MSG_LC_CHAR_DIED: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_C_CHAR_REVIVE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_LC_CHAR_REVIVE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_C_CATCH_PET: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("monster_id", E());
-    t.set("success", c());
+    t.set("id", getLong());
+    t.set("monster_id", getLong());
+    t.set("success", getByte());
     return t;
   },
   MSG_LC_CATCH_PET: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("monster_id", E());
-    t.set("success", c());
+    t.set("id", getLong());
+    t.set("monster_id", getLong());
+    t.set("success", getByte());
     return t;
   },
   MSG_C_ROUND_ANIMATE_TIME: function () {
     var t = new UtilMapping();
-    t.set("time", E());
+    t.set("time", getLong());
     return t;
   },
   MSG_GODBOOK_EFFECT_SUMMON: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("effect_no", l());
+    t.set("id", getLong());
+    t.set("effect_no", getShort());
     return t;
   },
   MSG_ATTACH_SKILL_LIGHT_EFFECT: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("effect_no", l());
-    t.set("type", E());
-    t.set("skill_name", d());
+    t.set("id", getLong());
+    t.set("effect_no", getShort());
+    t.set("type", getLong());
+    t.set("skill_name", getByteString());
     if (-1 == _) return t;
-    t.set("icon", E());
+    t.set("icon", getLong());
     return t;
   },
   MSG_C_CHILD_EFFECT: function () {
     var t = new UtilMapping();
-    t.set("owner_id", E());
-    t.set("id", E());
-    t.set("show_icon", E());
-    t.set("effect_no", E());
-    t.set("bottom_effect", E());
-    t.set("top_effect", E());
+    t.set("owner_id", getLong());
+    t.set("id", getLong());
+    t.set("show_icon", getLong());
+    t.set("effect_no", getLong());
+    t.set("bottom_effect", getLong());
+    t.set("top_effect", getLong());
     return t;
   },
   MSG_C_SET_FIGHT_PET: function () {
     var t = new UtilMapping(),
-      e = E(),
-      n = l();
+      e = getLong(),
+      n = getShort();
     if (e <= 0 || n < 0) return t;
     t.set("id", e);
     t.set("pet_status", n);
@@ -1390,20 +1414,20 @@ var Z = {
   },
   MSG_C_SET_CUSTOM_MSG: function () {
     var t = new UtilMapping(),
-      e = E();
+      e = getLong();
     if (e <= 0) return t;
     t.set("id", e);
-    t.set("channel", l());
-    t.set("show_extra", l());
-    t.set("server_name", d());
-    t.set("msg", d());
+    t.set("channel", getShort());
+    t.set("show_extra", getShort());
+    t.set("server_name", getByteString());
+    t.set("msg", getByteString());
     return t;
   },
   MSG_C_ADD_FRIEND: function () {
     var t = k(),
       e = t.length;
     if (!(-1 == _ || null == e || e <= 0)) {
-      for (var n = 0; n < e; ++n) t[n].set("actioner_id", E());
+      for (var n = 0; n < e; ++n) t[n].set("actioner_id", getLong());
       return t;
     }
   },
@@ -1411,7 +1435,7 @@ var Z = {
     var t = k(),
       e = t.length;
     if (!(-1 == _ || null == e || e <= 0)) {
-      for (var n = 0; n < e; ++n) t[n].set("actioner_id", E());
+      for (var n = 0; n < e; ++n) t[n].set("actioner_id", getLong());
       return t;
     }
   },
@@ -1419,7 +1443,7 @@ var Z = {
     var t = k(),
       e = t.length;
     if (!(-1 == _ || null == e || e <= 0)) {
-      for (var n = 0; n < e; ++n) t[n].set("actioner_id", E());
+      for (var n = 0; n < e; ++n) t[n].set("actioner_id", getLong());
       return t;
     }
   },
@@ -1427,20 +1451,20 @@ var Z = {
     var t = k(),
       e = t.length;
     if (!(-1 == _ || null == e || e <= 0)) {
-      for (var n = 0; n < e; ++n) t[n].set("actioner_id", E());
+      for (var n = 0; n < e; ++n) t[n].set("actioner_id", getLong());
       return t;
     }
   },
   MSG_C_QUIT_COMBAT: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("owner_id", E());
+    t.set("id", getLong());
+    t.set("owner_id", getLong());
     return t;
   },
   MSG_LC_QUIT_COMBAT: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("owner_id", E());
+    t.set("id", getLong());
+    t.set("owner_id", getLong());
     return t;
   },
   MSG_C_UPDATE_STATUS: function () {
@@ -1463,52 +1487,52 @@ var Z = {
   },
   MSG_C_MENU_SELECTED: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("menu_item", d());
+    t.set("id", getLong());
+    t.set("menu_item", getByteString());
     return t;
   },
   MSG_LC_MENU_SELECTED: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("menu_item", d());
+    t.set("id", getLong());
+    t.set("menu_item", getByteString());
     return t;
   },
   MSG_C_DELAY: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("delay_time", E());
+    t.set("id", getLong());
+    t.set("delay_time", getLong());
     return t;
   },
   MSG_LC_DELAY: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("delay_time", E());
+    t.set("id", getLong());
+    t.set("delay_time", getLong());
     return t;
   },
   MSG_C_LIGHT_EFFECT: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("no", E());
-    t.set("owner_id", E());
-    t.set("drag", c());
+    t.set("id", getLong());
+    t.set("no", getLong());
+    t.set("owner_id", getLong());
+    t.set("drag", getByte());
     return t;
   },
   MSG_LC_LIGHT_EFFECT: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("no", E());
-    t.set("owner_id", E());
+    t.set("id", getLong());
+    t.set("no", getLong());
+    t.set("owner_id", getLong());
     return t;
   },
   MSG_C_UPDATE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     R(t);
     return t;
   },
   MSG_LC_UPDATE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     R(t);
     return t;
   },
@@ -1520,17 +1544,17 @@ var Z = {
   },
   MSG_C_START_SEQUENCE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("para", E());
+    t.set("id", getLong());
+    t.set("para", getLong());
     return t;
   },
   MSG_C_OPPONENT_INFO: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (-1 == _ || e <= 0) return t;
     for (var n = 0; n < e; ++n) {
       var i = new UtilMapping();
-      i.set("id", E());
+      i.set("id", getLong());
       R(i);
       t.push(i);
     }
@@ -1538,14 +1562,14 @@ var Z = {
   },
   MSG_C_DIALOG_OK: function () {
     var t = new UtilMapping();
-    t.set("msg", d());
+    t.set("msg", getByteString());
     return t;
   },
   MSG_C_MESSAGE: function () {
     var t = new UtilMapping();
-    t.set("channel", l());
-    t.set("name", d());
-    t.set("msg", d());
+    t.set("channel", getShort());
+    t.set("name", getByteString());
+    t.set("msg", getByteString());
     return t;
   },
   MSG_SYNC_MESSAGE: function () {
@@ -1558,7 +1582,7 @@ var Z = {
   },
   MSG_SEQ_MESSAGE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     t.set(
       "data",
       a.buffer.slice(a.byteOffset + _, a.byteOffset + a.byteLength)
@@ -1567,12 +1591,12 @@ var Z = {
   },
   MSG_C_END_ACTION: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_LC_END_ACTION: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_C_ACCEPT_MULTI_HIT: function () {
@@ -1583,36 +1607,36 @@ var Z = {
   },
   MSG_C_ADD_CHILD: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("child_id", E());
-    t.set("child_icon", E());
+    t.set("id", getLong());
+    t.set("child_id", getLong());
+    t.set("child_icon", getLong());
     return t;
   },
   MSG_LC_ADD_CHILD: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("child_id", E());
-    t.set("child_icon", E());
+    t.set("id", getLong());
+    t.set("child_id", getLong());
+    t.set("child_icon", getLong());
     return t;
   },
   MSG_C_GENERAL_NOTIFY: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("type", l());
-    t.set("para", d());
+    t.set("id", getLong());
+    t.set("type", getShort());
+    t.set("para", getByteString());
     return t;
   },
   MSG_C_UPDATE_IMPROVEMENT_EX: function () {
     var t = [],
-      e = c(),
-      n = c(),
-      i = l();
+      e = getByte(),
+      n = getByte(),
+      i = getShort();
     if (null == i || i <= 0) return t;
     for (var s = 0; s < i; ++s) {
       var r = new UtilMapping();
       r.set("seq", e);
       r.set("partial_update", n);
-      r.set("id", E());
+      r.set("id", getLong());
       R(r);
       t.push(r);
     }
@@ -1620,103 +1644,103 @@ var Z = {
   },
   MSG_C_PET_ANGER_DELTA: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("anger_delta", E());
-    t.set("cur_anger", E());
+    t.set("id", getLong());
+    t.set("anger_delta", getLong());
+    t.set("cur_anger", getLong());
     return t;
   },
   MSG_C_CALLBACK_CHILD: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("child_id", E());
+    t.set("id", getLong());
+    t.set("child_id", getLong());
     return t;
   },
   MSG_LC_CALLBACK_CHILD: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("child_id", E());
+    t.set("id", getLong());
+    t.set("child_id", getLong());
     return t;
   },
   MSG_C_STATUS_IMPROVEMENT: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("status", l());
+    t.set("id", getLong());
+    t.set("status", getShort());
     R(t);
     return t;
   },
   MSG_C_UPDATE_BACKGROUND: function () {
     var t = new UtilMapping();
-    t.set("no", E());
+    t.set("no", getLong());
     return t;
   },
   MSG_C_UPDATE_BACKGROUND_EX: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("no", E());
+    t.set("id", getLong());
+    t.set("no", getLong());
     return t;
   },
   MSG_C_UPDATE_STATUS_INFO: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    var e = l();
+    t.set("id", getLong());
+    var e = getShort();
     if (null == e || e <= 0) return t;
-    for (var n = 0; n < e; ++n) t.set(l(), l());
+    for (var n = 0; n < e; ++n) t.set(getShort(), getShort());
     return t;
   },
   MSG_C_ANIMATE_ACCELERATE: function () {
     var t = new UtilMapping();
-    t.set("accelerate", c());
+    t.set("accelerate", getByte());
     return t;
   },
   MSG_C_BATCH_COMBAT_EFFECT: function () {
     var t = new UtilMapping();
-    t.set("name", d());
-    t.set("ids", d());
+    t.set("name", getByteString());
+    t.set("ids", getByteString());
     return t;
   },
   MSG_C_CAST_MAICAL_SKILL: function () {
     var t = new UtilMapping();
-    t.set("skill_no", E());
-    t.set("id", E());
-    t.set("st_nian_tou", d());
-    t.set("color", d());
-    t.set("para_x", E());
+    t.set("skill_no", getLong());
+    t.set("id", getLong());
+    t.set("st_nian_tou", getByteString());
+    t.set("color", getByteString());
+    t.set("para_x", getLong());
     return t;
   },
   MSG_C_REMOVE_MAICAL_SKILL: function () {
     var t = new UtilMapping();
-    t.set("skill_no", E());
+    t.set("skill_no", getLong());
     return t;
   },
   MSG_C_TAIJI_MINGYU_STATUS: function () {
     var t = new UtilMapping();
-    t.set("left_times", l());
+    t.set("left_times", getShort());
     return t;
   },
   MSG_C_DELAY_MULTI_ATTACK: function () {
     var t = new UtilMapping();
-    t.set("skill_no", E());
-    var e = l();
+    t.set("skill_no", getLong());
+    var e = getShort();
     if (null == e || e <= 0) return t;
     for (var n = 0; n < e; ++n) {
-      t.set("id" + n, E());
-      t.set("hit" + n, c());
+      t.set("id" + n, getLong());
+      t.set("hit" + n, getByte());
     }
     return t;
   },
   MSG_C_CAST_UNOWNED_SKILL: function () {
     var t = new UtilMapping();
-    t.set("index", l());
-    var e = l();
+    t.set("index", getShort());
+    var e = getShort();
     if (null == e || e <= 0) return t;
-    for (var n = 0; n < e; ++n) t.set("id" + n, E());
+    for (var n = 0; n < e; ++n) t.set("id" + n, getLong());
     return t;
   },
   MSG_C_APPLY_ITEM: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("victim_id", E());
-    t.set("name", d());
+    t.set("id", getLong());
+    t.set("victim_id", getLong());
+    t.set("name", getByteString());
     return t;
   },
   MSG_C_MENU_LIST: function () {
@@ -1736,18 +1760,18 @@ var Z = {
   },
   MSG_MENU_LIST: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("portrait", E());
-    t.set("spine_brow", d());
-    t.set("pic_no", l());
+    t.set("id", getLong());
+    t.set("portrait", getLong());
+    t.set("spine_brow", getByteString());
+    t.set("pic_no", getShort());
     t.set("content", u());
-    t.set("secret_key", d());
-    t.set("setting", l());
-    t.set("ignore_distance", c());
-    t.set("name", d());
-    t.set("menu_id", E());
-    t.set("atass_use", c());
-    t.set("server_question", E());
+    t.set("secret_key", getByteString());
+    t.set("setting", getShort());
+    t.set("ignore_distance", getByte());
+    t.set("name", getByteString());
+    t.set("menu_id", getLong());
+    t.set("atass_use", getByte());
+    t.set("server_question", getLong());
     return t;
   },
   MSG_MENU_CLOSED: function () {
@@ -1755,38 +1779,38 @@ var Z = {
   },
   MSG_GENERAL_NOTIFY: function () {
     var t = new UtilMapping();
-    t.set("notify", l());
-    t.set("para", d());
+    t.set("notify", getShort());
+    t.set("para", getByteString());
     return t;
   },
   MSG_ENTER_ROOM: function () {
     var t = new UtilMapping();
-    t.set("map_id", E());
-    t.set("source_id", E());
-    t.set("map_name", d());
-    t.set("x", l());
-    t.set("y", l());
-    t.set("dir", l());
-    t.set("compact_map_index", l());
-    t.set("npc_guide_index", l());
-    t.set("map_index", E());
-    t.set("map_alias", d());
-    t.set("map_music", d());
+    t.set("map_id", getLong());
+    t.set("source_id", getLong());
+    t.set("map_name", getByteString());
+    t.set("x", getShort());
+    t.set("y", getShort());
+    t.set("dir", getShort());
+    t.set("compact_map_index", getShort());
+    t.set("npc_guide_index", getShort());
+    t.set("map_index", getLong());
+    t.set("map_alias", getByteString());
+    t.set("map_music", getByteString());
     return t;
   },
   MSG_OPEN_MENU: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_UPDATE_WITHOUT_LEAVE_TEMP_TEAM_LIST: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (e <= 0) return [new UtilMapping()];
     for (var n = 0; n < e; ++n) {
       var i = new UtilMapping();
       i.set("count", e);
-      i.set("id", E());
+      i.set("id", getLong());
       R(i);
       t.push(i);
     }
@@ -1794,9 +1818,9 @@ var Z = {
   },
   MSG_UPDATE_LEAVE_TEMP_TEAM_LIST: function () {
     var t = [],
-      e = c(),
-      n = c(),
-      i = l();
+      e = getByte(),
+      n = getByte(),
+      i = getShort();
     if (i <= 0) return [new UtilMapping()];
     for (var s = 0; s < i; ++s) {
       var r = new UtilMapping();
@@ -1817,20 +1841,20 @@ var Z = {
     return t;
   },
   MSG_TEAM_REQUEST_TASK: function () {
-    for (var t = [], e = l(), n = 0; n < e; ++n) {
+    for (var t = [], e = getShort(), n = 0; n < e; ++n) {
       var i = new UtilMapping();
-      i.set("name", d());
-      i.set("total_times", l());
-      i.set("times", l());
+      i.set("name", getByteString());
+      i.set("total_times", getShort());
+      i.set("times", getShort());
       t.push(i);
     }
     if (!gfIsJdDist()) {
-      e = l();
+      e = getShort();
       for (var s = 0; s < e; ++s) {
         var r = new UtilMapping();
         r.set("festival_activity", 1);
-        r.set("name", d());
-        var _ = d();
+        r.set("name", getByteString());
+        var _ = getByteString();
         r.set("date", _);
         r.set("test_date", _);
         t.push(r);
@@ -1840,15 +1864,15 @@ var Z = {
   },
   MSG_FRIEND_UPDATE_LISTS: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (e <= 1) return t;
     for (var n = 0; n < e; ++n) {
-      for (var i = [], s = d(), r = l(), _ = 0; _ < r; ++_) {
+      for (var i = [], s = getByteString(), r = getShort(), _ = 0; _ < r; ++_) {
         var a = new UtilMapping();
         a.set("group_count", e);
         a.set("group", s);
         a.set("char_count", r);
-        a.set("char", d());
+        a.set("char", getByteString());
         L(a);
         R(a);
         a.haveKey("online") || a.set("online", 0);
@@ -1860,13 +1884,13 @@ var Z = {
   },
   MSG_FRIEND_ADD_CHAR: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (e <= 0) return [new UtilMapping()];
     for (var n = 0; n < e; ++n) {
       var i = new UtilMapping();
       i.set("count", e);
-      i.set("group", d());
-      i.set("char", d());
+      i.set("group", getByteString());
+      i.set("char", getByteString());
       R(i);
       i.haveKey("online") || i.set("online", 0);
       f(i);
@@ -1878,43 +1902,43 @@ var Z = {
   },
   MSG_FRIEND_REMOVE_CHAR: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (e <= 0) return [new UtilMapping()];
     for (var n = 0; n < e; ++n) {
       var i = new UtilMapping();
       i.set("count", e);
-      i.set("group", d());
-      i.set("char", d());
+      i.set("group", getByteString());
+      i.set("char", getByteString());
       t.push(i);
     }
     return t;
   },
   MSG_FRIEND_NOTIFICATION: function () {
     var t = new UtilMapping();
-    t.set("char", d());
-    t.set("server_name", d());
-    t.set("para", l());
-    -1 != _ && o() > 0 && t.set("user_state", c());
-    -1 != _ && o() > 0 && t.set("insider", c());
+    t.set("char", getByteString());
+    t.set("server_name", getByteString());
+    t.set("para", getShort());
+    -1 != _ && o() > 0 && t.set("user_state", getByte());
+    -1 != _ && o() > 0 && t.set("insider", getByte());
     return t;
   },
   MSG_FRIEND_UPDATE_PARTIAL: function () {
     var t = new UtilMapping();
-    l();
-    t.set("group", d());
-    t.set("char", d());
+    getShort();
+    t.set("group", getByteString());
+    t.set("char", getByteString());
     R(t);
     return t;
   },
   MSG_UPDATE_FRIEND_LIST_EX: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (e < 1) return [new UtilMapping()];
     for (var n = 0; n < e; ++n) {
       var i = new UtilMapping();
       i.set("count", e);
-      i.set("char", d());
-      i.set("group", d());
+      i.set("char", getByteString());
+      i.set("group", getByteString());
       R(i);
       t.push(i);
     }
@@ -1925,42 +1949,42 @@ var Z = {
   },
   MSG_UPDATE_FRIEND_STATUS: function () {
     var t = new UtilMapping(),
-      e = l();
+      e = getShort();
     t.set("count", e);
     for (var n = 0; n < e; ++n) {
-      t.set("name" + String(n), d());
-      t.set("server" + String(n), d());
+      t.set("name" + String(n), getByteString());
+      t.set("server" + String(n), getByteString());
     }
     return t;
   },
   MSG_MESSAGE: function () {
     var t = new UtilMapping();
-    t.set("channel", l());
-    t.set("id", E());
-    t.set("name", d());
-    t.set("msg", d());
-    t.set("time", d());
-    t.set("privilege", l());
-    t.set("server_name", d());
-    o() >= 2 && t.set("show_extra", l());
+    t.set("channel", getShort());
+    t.set("id", getLong());
+    t.set("name", getByteString());
+    t.set("msg", getByteString());
+    t.set("time", getByteString());
+    t.set("privilege", getShort());
+    t.set("server_name", getByteString());
+    o() >= 2 && t.set("show_extra", getShort());
     t.set("need_parse_server_res", 1);
     return t;
   },
   MSG_MESSAGE_EX: function () {
     var t = new UtilMapping(),
-      e = l();
+      e = getShort();
     t.set("channel", e);
-    t.set("id", E());
-    t.set("name", d());
+    t.set("id", getLong());
+    t.set("name", getByteString());
     t.set("msg", u());
-    t.set("time", d());
-    t.set("privilege", l());
-    t.set("server_name", d());
-    t.set("show_extra", l());
-    t.set("compress", l());
-    t.set("orgLength", l());
+    t.set("time", getByteString());
+    t.set("privilege", getShort());
+    t.set("server_name", getByteString());
+    t.set("show_extra", getShort());
+    t.set("compress", getShort());
+    t.set("orgLength", getShort());
     if (o()) {
-      CHANNEL_GROUP == e ? t.set("group_id", d()) : t.set("recieve_name", d());
+      CHANNEL_GROUP == e ? t.set("group_id", getByteString()) : t.set("recieve_name", getByteString());
       v(t);
       if (t.queryInt("item_info_count")) {
         var n = Math.floor(1e3 * Math.random())
@@ -1979,34 +2003,34 @@ var Z = {
         t.set("item_cookie_1", s);
       }
       if (o()) {
-        for (var r = l(), _ = 1; _ <= r; _++) {
+        for (var r = getShort(), _ = 1; _ <= r; _++) {
           var a = "item_cookie_" + _;
-          t.set(a, d());
+          t.set(a, getByteString());
         }
         t.set("item_cookie_count", r);
         if (o()) {
-          o() > 0 && t.set("msg_type", l());
-          o() > 0 && t.set("level", l());
-          o() > 0 && t.set("cycle_times", l());
-          o() > 0 && t.set("cycle_interval", l());
-          o() > 0 && t.set("is_year_insider", l());
-          o() > 0 && t.set("insider", l());
-          o() > 0 && t.set("city", d());
-          o() > 0 && t.set("sys_type", l());
-          o() > 0 && t.set("bonus_idx", d());
-          o() > 0 && t.set("sys_start_time", E());
-          o() > 0 && t.set("birth", l());
-          o() > 0 && t.set("dailian", l());
-          o() > 0 && t.set("is_newhand_instructor", l());
-          o() > 0 && t.set("horn_color_type", c());
-          o() > 0 && t.set("msg_id", d());
-          o() > 0 && t.set("doufa", E());
-          o() > 0 && t.set("msg_source", l());
-          gfIsJdDist() || (o() > 0 && t.set("msg_title", d()));
-          o() > 0 && t.set("need_parse_server_res", c());
+          o() > 0 && t.set("msg_type", getShort());
+          o() > 0 && t.set("level", getShort());
+          o() > 0 && t.set("cycle_times", getShort());
+          o() > 0 && t.set("cycle_interval", getShort());
+          o() > 0 && t.set("is_year_insider", getShort());
+          o() > 0 && t.set("insider", getShort());
+          o() > 0 && t.set("city", getByteString());
+          o() > 0 && t.set("sys_type", getShort());
+          o() > 0 && t.set("bonus_idx", getByteString());
+          o() > 0 && t.set("sys_start_time", getLong());
+          o() > 0 && t.set("birth", getShort());
+          o() > 0 && t.set("dailian", getShort());
+          o() > 0 && t.set("is_newhand_instructor", getShort());
+          o() > 0 && t.set("horn_color_type", getByte());
+          o() > 0 && t.set("msg_id", getByteString());
+          o() > 0 && t.set("doufa", getLong());
+          o() > 0 && t.set("msg_source", getShort());
+          gfIsJdDist() || (o() > 0 && t.set("msg_title", getByteString()));
+          o() > 0 && t.set("need_parse_server_res", getByte());
           if (!gfIsJdDist()) {
-            o() > 0 && t.set("source_dist", d());
-            o() > 0 && t.set("msg_dist", d());
+            o() > 0 && t.set("source_dist", getByteString());
+            o() > 0 && t.set("msg_dist", getByteString());
           }
           return t;
         }
@@ -2015,30 +2039,30 @@ var Z = {
   },
   MSG_LONG_MESSAGE: function () {
     var t = new UtilMapping();
-    t.set("channel", l());
-    t.set("name", d());
+    t.set("channel", getShort());
+    t.set("name", getByteString());
     t.set("msg", u());
-    t.set("time", d());
-    t.set("privilege", l());
-    t.set("server_name", d());
-    o() >= 2 && t.set("show_extra", l());
+    t.set("time", getByteString());
+    t.set("privilege", getShort());
+    t.set("server_name", getByteString());
+    o() >= 2 && t.set("show_extra", getShort());
     return t;
   },
   MSG_TITLE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    var e = l();
+    t.set("id", getLong());
+    var e = getShort();
     t.set("count", e);
-    for (var n = 1; n <= e; ++n) t.set(String(n), d());
+    for (var n = 1; n <= e; ++n) t.set(String(n), getByteString());
     return t;
   },
   MSG_DIALOG: function () {
     var t = [],
-      e = d(),
-      n = d(),
-      i = d(),
-      s = d(),
-      r = l();
+      e = getByteString(),
+      n = getByteString(),
+      i = getByteString(),
+      s = getByteString(),
+      r = getShort();
     if (r <= 0) return [new UtilMapping()];
     for (var a = 0; a < r; ++a) {
       var I = new UtilMapping();
@@ -2048,19 +2072,19 @@ var Z = {
       I.set("peer_name", i);
       I.set("ask_type", s);
       R(I);
-      "request_join" == s && I.set("id", E());
-      I.set("tip", d());
+      "request_join" == s && I.set("id", getLong());
+      I.set("tip", getByteString());
       t.push(I);
     }
     var h = 0;
-    -1 != _ && o() > 0 && (h = c());
+    -1 != _ && o() > 0 && (h = getByte());
     for (var u = t.length, T = 0; T < u; ++T) t[T].set("flag", h);
     return t;
   },
   MSG_CLEAN_REQUEST: function () {
     var t = [],
-      e = d(),
-      n = l();
+      e = getByteString(),
+      n = getShort();
     if (n <= 0) {
       var i = new UtilMapping();
       i.set("ask_type", e);
@@ -2070,16 +2094,16 @@ var Z = {
     for (var s = 0; s < n; ++s) {
       var r = new UtilMapping();
       r.set("ask_type", e);
-      r.set("name", d());
+      r.set("name", getByteString());
       t.push(r);
     }
     return t;
   },
   MSG_SET_SETTING: function () {
-    for (var t = new UtilMapping(), e = l(), n = [], i = 0; i < e; ++i)
+    for (var t = new UtilMapping(), e = getShort(), n = [], i = 0; i < e; ++i)
       n.push({
-        setting: d(),
-        value: l(),
+        setting: getByteString(),
+        value: getShort(),
       });
     t.set("size", e);
     t.set("setting_list", n);
@@ -2087,141 +2111,141 @@ var Z = {
   },
   MSG_TELEPORT_EX: function () {
     var t = new UtilMapping();
-    t.set("type", l());
-    t.set("tip", d());
-    t.set("gid", d());
+    t.set("type", getShort());
+    t.set("tip", getByteString());
+    t.set("gid", getByteString());
     return t;
   },
   MSG_BUTTON_DOUBLE_BONUS: function () {
     var t = new UtilMapping();
-    t.set("hours", l());
-    t.set("global_hours", l());
-    t.set("six_rate_hour", l());
+    t.set("hours", getShort());
+    t.set("global_hours", getShort());
+    t.set("six_rate_hour", getShort());
     return t;
   },
   MSG_OPEN_CONFIRM_DLG: function () {
     var t = new UtilMapping();
-    t.set("type", c());
-    t.set("modal", c());
-    t.set("usage", c());
+    t.set("type", getByte());
+    t.set("modal", getByte());
+    t.set("usage", getByte());
     t.set("content", u());
-    t.set("para", l());
-    t.set("para_string", d());
+    t.set("para", getShort());
+    t.set("para_string", getByteString());
     return t;
   },
   MSG_COMBAT_CAPACITY_RATE: function () {
     var t = new UtilMapping(),
-      e = c();
+      e = getByte();
     t.set("type", e);
     switch (e) {
       case CAPACITY_RATE_PLAYER:
-        t.set("zb_zl", d());
-        t.set("ss_zl", d());
-        t.set("fb_zl", d());
-        t.set("wd_zl", d());
-        t.set("ylf_zl", d());
-        t.set("zx_zl", d());
-        t.set("xq_zl", d());
-        t.set("daowen_zl", d());
+        t.set("zb_zl", getByteString());
+        t.set("ss_zl", getByteString());
+        t.set("fb_zl", getByteString());
+        t.set("wd_zl", getByteString());
+        t.set("ylf_zl", getByteString());
+        t.set("zx_zl", getByteString());
+        t.set("xq_zl", getByteString());
+        t.set("daowen_zl", getByteString());
         break;
 
       case CAPACITY_RATE_PET:
-        t.set("id", E());
-        t.set("zcz_zl", d());
-        t.set("ts_zl", d());
-        t.set("xf_zl", d());
-        t.set("qmd_zl", d());
+        t.set("id", getLong());
+        t.set("zcz_zl", getByteString());
+        t.set("ts_zl", getByteString());
+        t.set("xf_zl", getByteString());
+        t.set("qmd_zl", getByteString());
     }
     return t;
   },
   MSG_RUYI_RECOVER: function () {
     var t = new UtilMapping();
-    t.set("me_life", E());
-    t.set("me_max_life", E());
-    t.set("me_mana", E());
-    t.set("me_max_mana", E());
-    t.set("pet_life", E());
-    t.set("pet_max_life", E());
-    t.set("pet_mana", E());
-    t.set("pet_max_mana", E());
+    t.set("me_life", getLong());
+    t.set("me_max_life", getLong());
+    t.set("me_mana", getLong());
+    t.set("me_max_mana", getLong());
+    t.set("pet_life", getLong());
+    t.set("pet_max_life", getLong());
+    t.set("pet_mana", getLong());
+    t.set("pet_max_mana", getLong());
     return t;
   },
   MSG_REQUEST_SERVER_STATUS: function () {
     var t = [],
-      e = l();
+      e = getShort();
     if (-1 == _ || e <= 0) return t;
     for (var n = 0; n < e; ++n) {
       var i = new UtilMapping();
-      i.set("ip", d());
-      i.set("server", d());
-      i.set("status", l());
+      i.set("ip", getByteString());
+      i.set("server", getByteString());
+      i.set("status", getShort());
       t.push(i);
     }
     return t;
   },
   MSG_SWITCH_SERVER: function () {
     var t = new UtilMapping();
-    t.set("result", l());
-    t.set("msg", d());
+    t.set("result", getShort());
+    t.set("msg", getByteString());
     return t;
   },
   MSG_SWITCH_SERVER_EX: function () {
     var t = new UtilMapping();
-    t.set("result", l());
-    t.set("msg", d());
-    t.set("server_name", d());
+    t.set("result", getShort());
+    t.set("msg", getByteString());
+    t.set("server_name", getByteString());
     return t;
   },
   MSG_REFRESH_PET_GODBOOK_SKILLS: function () {
     var t = new UtilMapping(),
-      e = E();
+      e = getLong();
     if (0 >= e) return t;
-    var n = E();
+    var n = getLong();
     if (!(0 >= n)) {
       t.set("owner_id", e);
       t.set("pet_id", n);
-      t.set("god_book_skill_count", l());
+      t.set("god_book_skill_count", getShort());
       O(t, TRUE);
       return t;
     }
   },
   MSG_SET_PET_SETTING: function () {
     var t = new UtilMapping();
-    t.set("no", c());
-    for (var e = l(), n = 0; n < e; ++n) t.set(d(), d());
+    t.set("no", getByte());
+    for (var e = getShort(), n = 0; n < e; ++n) t.set(getByteString(), getByteString());
     return t;
   },
   MSG_PET_XINFA_EXP_CARD: function () {
     var t = new UtilMapping();
-    t.set("is_buy", c());
-    t.set("left_time", c());
-    t.set("is_reward", c());
+    t.set("is_buy", getByte());
+    t.set("left_time", getByte());
+    t.set("is_reward", getByte());
     return t;
   },
   MSG_AUTH_VIP_SMS: function () {
     var t = new UtilMapping(),
-      e = c();
+      e = getByte();
     t.set("oper_type", e);
-    1 == e && t.set("key", d());
+    1 == e && t.set("key", getByteString());
     return t;
   },
   MSG_OPEN_AUTH_ALL_PROTECT: function () {
     var t = new UtilMapping();
-    t.set("seq_no", E());
+    t.set("seq_no", getLong());
     t.set("args", u());
-    t.set("main_lock", c());
+    t.set("main_lock", getByte());
     return t;
   },
   MSG_PASSWORD_DLG: function () {
     var t = new UtilMapping();
-    t.set("content", d());
-    t.set("secret_key", d());
+    t.set("content", getByteString());
+    t.set("secret_key", getByteString());
     return t;
   },
   MSG_GUARDS_REFRESH: function (t) {
-    for (var e = [], n = E(), i = 0; i < n; ++i) {
+    for (var e = [], n = getLong(), i = 0; i < n; ++i) {
       var s = new UtilMapping();
-      s.set("id", E());
+      s.set("id", getLong());
       p(s);
       J(s);
       s.set("syn_msg", t ? TRUE : FALSE);
@@ -2231,23 +2255,23 @@ var Z = {
   },
   MSG_GUARDS_DROP: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_GUARDS_VISIBLE: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_SET_CURRENT_MOUNT: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_OPEN_MOUNT_INBORN_SKILLS: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    for (var e = [], n = c(), i = 0; i < n; ++i) {
+    t.set("id", getLong());
+    for (var e = [], n = getByte(), i = 0; i < n; ++i) {
       var s = new UtilMapping();
       A(s);
       e.push(s);
@@ -2256,10 +2280,10 @@ var Z = {
     return t;
   },
   MSG_UPDATE_CHILDREN: function () {
-    for (var t = [], e = l(), n = 0; n < e; ++n) {
+    for (var t = [], e = getShort(), n = 0; n < e; ++n) {
       var i = new UtilMapping();
-      i.set("no", c());
-      i.set("id", E());
+      i.set("no", getByte());
+      i.set("id", getLong());
       p(i);
       t.push(i);
     }
@@ -2267,38 +2291,38 @@ var Z = {
   },
   MSG_UPDATE_CHILD_ATTRIB: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     R(t);
     return t;
   },
   MSG_SET_VISIBLE_CHILD: function () {
     var t = new UtilMapping();
-    t.set("id", E());
+    t.set("id", getLong());
     return t;
   },
   MSG_SET_CURRENT_CHILD: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("in_combat", l());
+    t.set("id", getLong());
+    t.set("in_combat", getShort());
     return t;
   },
   MSG_SET_OWNER_CHILD: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("owner_id", E());
-    t.set("no", c());
+    t.set("id", getLong());
+    t.set("owner_id", getLong());
+    t.set("no", getByte());
     return t;
   },
   MSG_CHILD_INVENTORY: function () {
     var t = new UtilMapping(),
-      e = E();
+      e = getLong();
     t.set("child_id", e);
-    var n = l();
+    var n = getShort();
     if (-1 == _ || n <= 0) return t;
     for (var i = [], s = 1; s <= n; ++s) {
       var r = new UtilMapping(),
         a = new UtilMapping(),
-        o = c();
+        o = getByte();
       r.set("pos", o);
       r.set("child_id", e);
       a.set("pos", o);
@@ -2310,17 +2334,17 @@ var Z = {
   },
   MSG_MAKEUP_INFO: function () {
     var t = new UtilMapping();
-    t.set("icon", E());
-    t.set("dress_label", E());
+    t.set("icon", getLong());
+    t.set("dress_label", getLong());
     return t;
   },
   MSG_STORE: function () {
     var t = [],
-      e = E(),
-      n = l(),
-      i = l(),
-      s = c(),
-      r = l();
+      e = getLong(),
+      n = getShort(),
+      i = getShort(),
+      s = getByte(),
+      r = getShort();
     if (r <= 0) {
       new UtilMapping().set("end", 1);
       return t;
@@ -2328,7 +2352,7 @@ var Z = {
     for (var _ = 0; _ < r; ++_) {
       var a = new UtilMapping(),
         o = new UtilMapping(),
-        I = l();
+        I = getShort();
       a.set("end", _ == r - 1);
       a.set("id", e);
       a.set("count", r);
@@ -2345,12 +2369,12 @@ var Z = {
   },
   MSG_STORE_BOXES: function () {
     var t = new UtilMapping();
-    t.set("box_dlg_type", c());
-    var e = c();
+    t.set("box_dlg_type", getByte());
+    var e = getByte();
     t.set("count", e);
     for (var n = 0; n < e; n++) {
-      t.set("name_" + n, d());
-      t.set("time_" + n, E());
+      t.set("name_" + n, getByteString());
+      t.set("time_" + n, getLong());
     }
     return t;
   },
@@ -2359,11 +2383,11 @@ var Z = {
   },
   MSG_PET_STORE: function () {
     var t = new UtilMapping(),
-      e = E();
+      e = getLong();
     t.set("npc_id", e);
-    for (var n = [], i = c(), s = 0; s < i; ++s) {
+    for (var n = [], i = getByte(), s = 0; s < i; ++s) {
       var r = new UtilMapping(),
-        _ = l();
+        _ = getShort();
       p(r);
       y(r);
       r.set("no", _);
@@ -2376,9 +2400,9 @@ var Z = {
     return t;
   },
   MSG_KIND_GOODS_LIST: function () {
-    for (var t = [], e = l(), n = l(), i = 0; i < e; ++i)
+    for (var t = [], e = getShort(), n = getShort(), i = 0; i < e; ++i)
       for (
-        var s = l(), r = E(), _ = l(), a = l(), o = l(), c = l(), I = 0;
+        var s = getShort(), r = getLong(), _ = getShort(), a = getShort(), o = getShort(), c = getShort(), I = 0;
         I < c;
         ++I
       ) {
@@ -2391,10 +2415,10 @@ var Z = {
         h.set("buy_rate", _);
         h.set("sell_rate", a);
         h.set("repair", o);
-        var u = l();
+        var u = getShort();
         h.set("no", u);
-        h.set("cost_type", E());
-        h.set("supply_num", l());
+        h.set("cost_type", getLong());
+        h.set("supply_num", getShort());
         d.set("no", u);
         m(h, d);
         t.push(h);
@@ -2403,20 +2427,20 @@ var Z = {
   },
   MSG_SELL_PET_LIST: function () {
     for (
-      var t = [], e = gfIsJdDist(), n = c(), i = E(), s = l(), r = 0;
+      var t = [], e = gfIsJdDist(), n = getByte(), i = getLong(), s = getShort(), r = 0;
       r < s;
       ++r
     ) {
       var _ = new UtilMapping();
       _.set("open_dlg", n);
       _.set("id", i);
-      _.set("pos", l());
-      _.set("pet_name", d());
-      _.set("pet_cash", E());
-      _.set("pet_rank", l());
-      _.set("pet_req_level", l());
-      _.set("pet_level", l());
-      e || _.set("tongyuan_label", l());
+      _.set("pos", getShort());
+      _.set("pet_name", getByteString());
+      _.set("pet_cash", getLong());
+      _.set("pet_rank", getShort());
+      _.set("pet_req_level", getShort());
+      _.set("pet_level", getShort());
+      e || _.set("tongyuan_label", getShort());
       t.push(_);
     }
     return t;
@@ -2426,28 +2450,28 @@ var Z = {
   },
   MSG_TASK_SCORE_EXCHANGE_LIST: function () {
     var t = new UtilMapping(),
-      e = c(),
-      n = E(),
+      e = getByte(),
+      n = getLong(),
       i = 0,
       s = 0,
       r = 0;
     switch (e) {
       case TYPE_SENLUO_WANXIANG:
       case TYPE_CHILDREN_DAY_2017:
-        i = E();
+        i = getLong();
         break;
 
       case TYPE_WANGZHONGWANG:
-        s = l();
+        s = getShort();
         break;
 
       case TYPE_TIANYANJUE:
-        r = E();
+        r = getLong();
         break;
 
       case TYPE_WANGWEI_ZHENGDUOZHAN:
     }
-    var _ = l();
+    var _ = getShort();
     t.set("exchange_type", e);
     t.set("id", n);
     t.set("count", _);
@@ -2463,43 +2487,43 @@ var Z = {
       I.set("score", i);
       I.set("cash_type", s);
       I.set("bonus_end_time", r);
-      I.set("no", l());
+      I.set("no", getShort());
       I.set("pos", o);
-      I.set("supply_num", c());
-      I.set("accumulate_score", E());
+      I.set("supply_num", getByte());
+      I.set("accumulate_score", getLong());
       h.set("no", I.queryInt("no"));
       switch (e) {
         case TYPE_CHRISTMAS_NICE_NUM:
-          I.set("name", d());
-          I.set("icon", E());
+          I.set("name", getByteString());
+          I.set("icon", getLong());
           break;
 
         case TYPE_SIX_ANNIVERSARY:
         case TYPE_SEVEN_YEAR_MALL:
-          I.set("bonus_type", d());
-          I.set("name", d());
-          I.set("limit_month", c());
-          I.set("sale_start", c());
-          I.set("sale_end", c());
-          I.set("show_start", c());
-          I.set("show_end", c());
+          I.set("bonus_type", getByteString());
+          I.set("name", getByteString());
+          I.set("limit_month", getByte());
+          I.set("sale_start", getByte());
+          I.set("sale_end", getByte());
+          I.set("show_start", getByte());
+          I.set("show_end", getByte());
           if ("item" == I.query("bonus_type")) {
-            I.set("gender", c());
+            I.set("gender", getByte());
             m(I, h);
           } else {
-            I.set("icon", E());
+            I.set("icon", getLong());
             I.set("type", OBJECT_TYPE_PET);
           }
           break;
 
         case TYPE_TASK_SCORE:
-          I.set("limit_day", E());
+          I.set("limit_day", getLong());
           m(I, h);
           break;
 
         case TYPE_MOTHER_DAY_2020:
         case TYPE_YINLUREN_JIFEN:
-          I.set("time_limit_day", E());
+          I.set("time_limit_day", getLong());
           m(I, h);
           break;
 
@@ -2511,22 +2535,22 @@ var Z = {
         case TYPE_CHRISTMAS_DAY_2016:
         case TYPE_WANSHENGJIE_2016:
         case TYPE_XUANMAI_XUNKUANG:
-          I.set("coin_type", d());
-          I.set("price", E());
+          I.set("coin_type", getByteString());
+          I.set("price", getLong());
           m(I, h);
           break;
 
         case TYPE_WANGWEI_ZHENGDUOZHAN:
-          I.set("left_num", E());
-          I.set("time_limit_day", E());
-          I.set("quato_refresh_time", E());
+          I.set("left_num", getLong());
+          I.set("time_limit_day", getLong());
+          I.set("quato_refresh_time", getLong());
           m(I, h);
           break;
 
         case TYPE_WUMAI_ZHENGFENG:
-          I.set("time_limit_day", c());
-          I.set("week_limit_num", c());
-          I.set("total_quota", c());
+          I.set("time_limit_day", getByte());
+          I.set("week_limit_num", getByte());
+          I.set("total_quota", getByte());
           m(I, h);
           break;
 
@@ -2540,142 +2564,142 @@ var Z = {
   },
   MSG_REFRESH_TODAY_STAT: function () {
     var t = new UtilMapping();
-    t.set("max_level", c());
-    t.set("me_tao", E());
-    t.set("exp", E());
-    t.set("exp_ex", E());
-    t.set("tao", E());
-    t.set("tao_ex", E());
-    t.set("dao_fa", E());
-    t.set("pot", E());
-    t.set("total_score", E());
-    t.set("reputation", E());
-    t.set("total_fights", E());
-    t.set("online_time", E());
-    t.set("dead_times", E());
-    t.set("glory", E());
-    t.set("yesterday_activity", E());
-    t.set("today_activity", E());
-    t.set("activity_to_next", E());
-    t.set("gongxun", E());
+    t.set("max_level", getByte());
+    t.set("me_tao", getLong());
+    t.set("exp", getLong());
+    t.set("exp_ex", getLong());
+    t.set("tao", getLong());
+    t.set("tao_ex", getLong());
+    t.set("dao_fa", getLong());
+    t.set("pot", getLong());
+    t.set("total_score", getLong());
+    t.set("reputation", getLong());
+    t.set("total_fights", getLong());
+    t.set("online_time", getLong());
+    t.set("dead_times", getLong());
+    t.set("glory", getLong());
+    t.set("yesterday_activity", getLong());
+    t.set("today_activity", getLong());
+    t.set("activity_to_next", getLong());
+    t.set("gongxun", getLong());
     return t;
   },
   MSG_WUDAO_STAGE_INFO: function () {
     var t = new UtilMapping();
-    gfIsJdDist() || t.set("not_open", c());
-    t.set("stage", l());
-    t.set("char_stage", l());
-    t.set("char_rep", E());
-    t.set("req_level", E());
-    for (var e = l(), n = 0; n < e; ++n) {
-      var i = d();
-      t.set("enable_" + i, E());
-      t.set("rep_att_" + i, E());
-      t.set("rep_" + i, E());
-      t.set("max_rep_" + i, E());
+    gfIsJdDist() || t.set("not_open", getByte());
+    t.set("stage", getShort());
+    t.set("char_stage", getShort());
+    t.set("char_rep", getLong());
+    t.set("req_level", getLong());
+    for (var e = getShort(), n = 0; n < e; ++n) {
+      var i = getByteString();
+      t.set("enable_" + i, getLong());
+      t.set("rep_att_" + i, getLong());
+      t.set("rep_" + i, getLong());
+      t.set("max_rep_" + i, getLong());
     }
     if (gfIsJdDist()) {
-      e = l();
+      e = getShort();
       for (var s = 0; s < e; ++s) {
-        var r = d();
-        t.set("card_status_" + r, l());
-        t.set("card_left_times_" + r, c());
+        var r = getByteString();
+        t.set("card_status_" + r, getShort());
+        t.set("card_left_times_" + r, getByte());
       }
     } else {
-      t.set("buy_card_type", d());
-      t.set("card_status", l());
-      t.set("card_left_times", c());
+      t.set("buy_card_type", getByteString());
+      t.set("card_status", getShort());
+      t.set("card_left_times", getByte());
     }
-    t.set("cur_point_group", c());
-    t.set("change_times", E());
-    t.set("extra_attrib_name", d());
-    t.set("extra_attrib_value", E());
-    t.set("extra_attrib_value_next", E());
-    e = l();
+    t.set("cur_point_group", getByte());
+    t.set("change_times", getLong());
+    t.set("extra_attrib_name", getByteString());
+    t.set("extra_attrib_value", getLong());
+    t.set("extra_attrib_value_next", getLong());
+    e = getShort();
     for (var _ = 0; _ < e; ++_) {
-      var a = d();
-      t.set("Total_stage_attrib_" + a, E());
-      t.set("ban_attrib_" + a, c());
+      var a = getByteString();
+      t.set("Total_stage_attrib_" + a, getLong());
+      t.set("ban_attrib_" + a, getByte());
     }
     return t;
   },
   MSG_WUDAO_PRE_ADD_ATTRIB_REP: function () {
     var t = new UtilMapping();
-    t.set("power", E());
-    t.set("speed", E());
-    t.set("life", E());
-    t.set("def", E());
+    t.set("power", getLong());
+    t.set("speed", getLong());
+    t.set("life", getLong());
+    t.set("def", getLong());
     return t;
   },
   MSG_QIRI_QIANDAO: function () {
     var t = new UtilMapping();
     if (!gfIsJdDist()) {
-      t.set("new_server_start_time", E());
-      t.set("new_server_end_time", E());
-      t.set("new_server_signed", c());
+      t.set("new_server_start_time", getLong());
+      t.set("new_server_end_time", getLong());
+      t.set("new_server_signed", getByte());
     }
-    t.set("start_time", E());
-    t.set("get_big_reward", c());
-    var e = l();
+    t.set("start_time", getLong());
+    t.set("get_big_reward", getByte());
+    var e = getShort();
     t.set("count", e);
     for (var n = 1; n <= e; n++) {
-      t.set("reward_" + n, c());
-      t.set("signed_" + n, c());
+      t.set("reward_" + n, getByte());
+      t.set("signed_" + n, getByte());
     }
     if (gfIsJdDist()) {
-      t.set("bonus_state_1", l());
-      t.set("bonus_state_2", l());
-      t.set("bonus_state_3", l());
-      t.set("bonus_state_4", l());
-      t.set("bonus_state_5", l());
-      t.set("bonus_state_6", l());
+      t.set("bonus_state_1", getShort());
+      t.set("bonus_state_2", getShort());
+      t.set("bonus_state_3", getShort());
+      t.set("bonus_state_4", getShort());
+      t.set("bonus_state_5", getShort());
+      t.set("bonus_state_6", getShort());
     } else {
-      t.set("bonus_state_1", l());
-      t.set("bonus_state_2", l());
-      t.set("bonus_state_3", l());
-      t.set("bonus_state_4", l());
-      t.set("bonus_state_5", l());
-      t.set("bonus_state_6", l());
-      t.set("bonus_state_7", l());
-      t.set("bonus_state_8", l());
-      t.set("last_pet_id", E());
+      t.set("bonus_state_1", getShort());
+      t.set("bonus_state_2", getShort());
+      t.set("bonus_state_3", getShort());
+      t.set("bonus_state_4", getShort());
+      t.set("bonus_state_5", getShort());
+      t.set("bonus_state_6", getShort());
+      t.set("bonus_state_7", getShort());
+      t.set("bonus_state_8", getShort());
+      t.set("last_pet_id", getLong());
     }
     return t;
   },
   MSG_DAOHANG_FUND_LIST: function () {
     var t = new UtilMapping();
-    t.set("start_time", E());
-    t.set("end_time", E());
-    var e = c();
+    t.set("start_time", getLong());
+    t.set("end_time", getLong());
+    var e = getByte();
     t.set("count", e);
     for (var n = 1; n <= e; n++) {
-      t.set("type" + n, c());
-      t.set("data" + n, E());
+      t.set("type" + n, getByte());
+      t.set("data" + n, getLong());
     }
     return t;
   },
   MSG_CHENGZHANG_FUND_LIST: function () {
     var t = new UtilMapping();
-    t.set("start_time", E());
-    t.set("end_time", E());
-    var e = c();
+    t.set("start_time", getLong());
+    t.set("end_time", getLong());
+    var e = getByte();
     t.set("count", e);
     for (var n = 1; n <= e; n++) {
-      t.set("type" + n, c());
-      t.set("data" + n, E());
-      for (var i = c(), s = 1; s <= i; s++) {
-        var r = l();
-        t.set("award_times" + n + "_" + r, l());
-        t.set("get_today_award" + n + "_" + r, l());
+      t.set("type" + n, getByte());
+      t.set("data" + n, getLong());
+      for (var i = getByte(), s = 1; s <= i; s++) {
+        var r = getShort();
+        t.set("award_times" + n + "_" + r, getShort());
+        t.set("get_today_award" + n + "_" + r, getShort());
       }
     }
     return t;
   },
   MSG_MOBILE_WELFARE_CENTER_DLG: function () {
-    for (var t = [], e = l(), n = 0; n < e; n++) {
+    for (var t = [], e = getShort(), n = 0; n < e; n++) {
       var i = new UtilMapping();
-      i.set("type", l());
-      i.set("status", c());
+      i.set("type", getShort());
+      i.set("status", getByte());
       t.push(i);
     }
     return t;
@@ -2687,22 +2711,22 @@ var Z = {
   },
   MSG_GET_FRIEND_VERIFY: function () {
     var t = new UtilMapping();
-    t.set("name", d());
+    t.set("name", getByteString());
     return t;
   },
   MSG_REPLY_FRIEND_VERIFY: function () {
     var t = new UtilMapping();
-    t.set("name", d());
-    t.set("result", c());
-    t.set("reply", d());
+    t.set("name", getByteString());
+    t.set("result", getByte());
+    t.set("reply", getByteString());
     return t;
   },
   MSG_REQUEST_FRIEND_VERIFY: function () {
     var t = new UtilMapping();
-    t.set("name", d());
-    t.set("verify", d());
-    t.set("group", d());
-    t.set("char", d());
+    t.set("name", getByteString());
+    t.set("verify", getByteString());
+    t.set("group", getByteString());
+    t.set("char", getByteString());
     R(t);
     t.haveKey("online") || t.set("online", 0);
     f(t);
@@ -2712,11 +2736,11 @@ var Z = {
   },
   MSG_SKILL_COST_ATTRIB: function () {
     var t = new UtilMapping(),
-      e = l();
+      e = getShort();
     t.set("cost_type_count", e);
     for (var n = 1; n <= e; ++n) {
-      t.set("cost_type_" + n.toString(), d());
-      t.set("cost_point_" + n.toString(), E());
+      t.set("cost_type_" + n.toString(), getByteString());
+      t.set("cost_point_" + n.toString(), getLong());
     }
     return t;
   },
@@ -2724,77 +2748,77 @@ var Z = {
     var t = new UtilMapping();
     if (gfIsJdDist()) {
       t.set("count", 1);
-      t.set("qishu_skill_0", l());
+      t.set("qishu_skill_0", getShort());
     } else {
-      var e = c();
+      var e = getByte();
       t.set("count", e);
-      for (var n = 0; n < e; n++) t.set("qishu_skill_" + n, l());
+      for (var n = 0; n < e; n++) t.set("qishu_skill_" + n, getShort());
     }
     return t;
   },
   MSG_REFRESH_PENNANT_SKILLS: function () {
     var t = [];
-    D(new UtilMapping(), l(), t);
+    D(new UtilMapping(), getShort(), t);
     return t;
   },
   MSG_ZHENXING_INFO: function () {
     var t = new UtilMapping(),
-      e = c();
+      e = getByte();
     t.set("zhengx_count", e);
-    for (var n = 0; n < e; ++n) t.set("zhengx_" + n.toString(), c());
-    t.set("cur_zhengx", c());
+    for (var n = 0; n < e; ++n) t.set("zhengx_" + n.toString(), getByte());
+    t.set("cur_zhengx", getByte());
     return t;
   },
   MSG_OPEN_DIALOG: function () {
     var t = new UtilMapping();
-    t.set("name", d());
-    t.set("opened", c());
+    t.set("name", getByteString());
+    t.set("opened", getByte());
     return t;
   },
   MSG_XIAOLV_DIANSHU: function () {
     var t = new UtilMapping();
-    t.set("only_refresh", c());
-    t.set("remainder_free_score", E());
-    t.set("now_triple_score", E());
-    t.set("now_ruyi_score", E());
-    t.set("now_ziqi_score", E());
-    t.set("now_pet_triple_score", E());
-    t.set("now_qmsj_score", E());
-    t.set("now_qmsd_score", E());
+    t.set("only_refresh", getByte());
+    t.set("remainder_free_score", getLong());
+    t.set("now_triple_score", getLong());
+    t.set("now_ruyi_score", getLong());
+    t.set("now_ziqi_score", getLong());
+    t.set("now_pet_triple_score", getLong());
+    t.set("now_qmsj_score", getLong());
+    t.set("now_qmsd_score", getLong());
     if (!gfIsJdDist()) {
-      t.set("now_bgsf_score", E());
-      t.set("now_tdsf_score", E());
+      t.set("now_bgsf_score", getLong());
+      t.set("now_tdsf_score", getLong());
     }
-    t.set("now_mrsj_score", E());
-    t.set("now_mrsj_max_score", E());
-    t.set("now_mzsd_score", E());
-    t.set("now_mzsd_max_score", E());
-    t.set("triple_switch", c());
-    t.set("ruyi_switch", c());
-    t.set("ziqi_switch", c());
-    t.set("pet_triple_switch", c());
+    t.set("now_mrsj_score", getLong());
+    t.set("now_mrsj_max_score", getLong());
+    t.set("now_mzsd_score", getLong());
+    t.set("now_mzsd_max_score", getLong());
+    t.set("triple_switch", getByte());
+    t.set("ruyi_switch", getByte());
+    t.set("ziqi_switch", getByte());
+    t.set("pet_triple_switch", getByte());
     if (!gfIsJdDist()) {
-      t.set("global_hours", l());
-      t.set("six_rate_hour", l());
-      t.set("open_six_rate_hours", d());
-      t.set("open_global_hours", d());
-      t.set("global_forzen_time", d());
+      t.set("global_hours", getShort());
+      t.set("six_rate_hour", getShort());
+      t.set("open_six_rate_hours", getByteString());
+      t.set("open_global_hours", getByteString());
+      t.set("global_forzen_time", getByteString());
     }
     return t;
   },
   MSG_PROMPT_JD_BOX: function () {
     var t = new UtilMapping();
-    t.set("free_open_number", E());
-    t.set("zhuli_vip_end_time", E());
-    for (var e = l(), n = [], i = 0; i < e; ++i) {
+    t.set("free_open_number", getLong());
+    t.set("zhuli_vip_end_time", getLong());
+    for (var e = getShort(), n = [], i = 0; i < e; ++i) {
       var s = new UtilMapping();
-      s.set("name", d());
-      s.set("box_max_times", c());
-      s.set("box_normal_times", c());
-      s.set("box_insider_times", c());
-      s.set("box_fairy_times", c());
-      s.set("cur_times_to_open_box", c());
-      s.set("total_times_to_open_box", c());
+      s.set("name", getByteString());
+      s.set("box_max_times", getByte());
+      s.set("box_normal_times", getByte());
+      s.set("box_insider_times", getByte());
+      s.set("box_fairy_times", getByte());
+      s.set("cur_times_to_open_box", getByte());
+      s.set("total_times_to_open_box", getByte());
       n.push(s);
     }
     t.set("all_info_list", n);
@@ -2802,84 +2826,84 @@ var Z = {
   },
   MSG_FAIRY_CLASS_INFO: function () {
     var t = new UtilMapping();
-    t.set("fairy/class", c());
-    t.set("fairy/layer", c());
-    t.set("cur_state", c());
-    t.set("zhen_fa", c());
-    t.set("left_time", E());
-    t.set("time_speed", E());
-    t.set("cur_practice_val", E());
-    t.set("total_practice_val", E());
-    t.set("fairy/lijie", c());
-    t.set("xinmo_rate", E());
-    t.set("effect_rate", E());
-    var e = c();
+    t.set("fairy/class", getByte());
+    t.set("fairy/layer", getByte());
+    t.set("cur_state", getByte());
+    t.set("zhen_fa", getByte());
+    t.set("left_time", getLong());
+    t.set("time_speed", getLong());
+    t.set("cur_practice_val", getLong());
+    t.set("total_practice_val", getLong());
+    t.set("fairy/lijie", getByte());
+    t.set("xinmo_rate", getLong());
+    t.set("effect_rate", getLong());
+    var e = getByte();
     t.set("count", e);
     for (var n = 1; n <= e; ++n) {
-      t.set("pos_" + n, c());
-      t.set("tingle_type_" + n, c());
+      t.set("pos_" + n, getByte());
+      t.set("tingle_type_" + n, getByte());
     }
-    t.set("have_nlearn_prop", c());
-    t.set("xinmo_resist_times", l());
+    t.set("have_nlearn_prop", getByte());
+    t.set("xinmo_resist_times", getShort());
     return t;
   },
   MSG_FAIRY_ITEM_GROUP_EFFECT: function () {
     var t = new UtilMapping();
-    t.set("index", c());
-    t.set("time", E());
+    t.set("index", getByte());
+    t.set("time", getLong());
     return t;
   },
   MSG_FAIRY_ATTRIBS: function () {
     var t = new UtilMapping();
-    gfIsJdDist() || t.set("not_open", c());
-    var e = c();
+    gfIsJdDist() || t.set("not_open", getByte());
+    var e = getByte();
     t.set("total_count", e);
     for (var n = 1; n <= e; ++n) {
-      t.set("total_prop_name_" + n, d());
-      t.set("total_prop_val_" + n, E());
+      t.set("total_prop_name_" + n, getByteString());
+      t.set("total_prop_val_" + n, getLong());
     }
-    t.set("st_skill_name", d());
-    var i = c();
+    t.set("st_skill_name", getByteString());
+    var i = getByte();
     t.set("fairy_equip_prop_count", i);
     for (var s = 1; s <= i; ++s) {
-      t.set("fairy_equip_prop_name_" + s, d());
-      t.set("fairy_equip_prop_val_" + s, E());
+      t.set("fairy_equip_prop_name_" + s, getByteString());
+      t.set("fairy_equip_prop_val_" + s, getLong());
     }
-    var r = c();
+    var r = getByte();
     t.set("cur_count", r);
     for (var _ = 1; _ <= r; ++_) {
-      t.set("cur_prop_name_" + _, d());
-      t.set("cur_prop_val_" + _, E());
+      t.set("cur_prop_name_" + _, getByteString());
+      t.set("cur_prop_val_" + _, getLong());
     }
-    t.set("change_prop_index", c());
-    t.set("cur_prop_type", c());
+    t.set("change_prop_index", getByte());
+    t.set("cur_prop_type", getByte());
     return t;
   },
   MSG_FSL_INCARNATION_INFO: function () {
     var t = {};
-    t.refresh_all = c();
-    var e = l();
+    t.refresh_all = getByte();
+    var e = getShort();
     t.count = e;
     for (var n = 0; n < e; ++n) {
       var i = new UtilMapping();
-      i.set("iid", d());
-      i.set("name", d());
-      i.set("friendly", E());
-      i.set("friendship", E());
-      i.set("max_friendly", E());
-      i.set("is_guarded", c());
-      i.set("is_binded", c());
-      i.set("is_ju_xiang_hua", c());
-      i.set("can_chat", c());
-      i.set("attrib", d());
-      i.set("base_attrib", E());
-      i.set("guard_attrib", E());
+      i.set("iid", getByteString());
+      i.set("name", getByteString());
+      i.set("friendly", getLong());
+      i.set("friendship", getLong());
+      i.set("max_friendly", getLong());
+      i.set("is_guarded", getByte());
+      i.set("is_binded", getByte());
+      i.set("is_ju_xiang_hua", getByte());
+      i.set("can_chat", getByte());
+      i.set("attrib", getByteString());
+      i.set("base_attrib", getLong());
+      i.set("guard_attrib", getLong());
       t[n] = i;
     }
     return t;
   },
   MSG_FSL_DELETE_INCARNATION: function () {
-    for (var t = [], e = l(), n = 0; n < e; ++n) t.push(d());
+    for (var t = [], e = getShort(), n = 0; n < e; ++n) t.push(getByteString());
     return t;
   },
   MSG_FSL_OVERVIEW_INFO: function () {
@@ -2889,13 +2913,13 @@ var Z = {
     t.basic_attrib_state = e;
     R((e = new UtilMapping()));
     t.properties = e;
-    for (var n = [], i = l(), s = 0; s < i; ++s) {
-      (e = new UtilMapping()).set("skill_no", E());
-      var r = l();
+    for (var n = [], i = getShort(), s = 0; s < i; ++s) {
+      (e = new UtilMapping()).set("skill_no", getLong());
+      var r = getShort();
       e.set("series_count", r);
       for (var _ = 1; _ <= r; ++_) {
-        e.set("series_" + _.toString(), l());
-        e.set("series_add_level_" + _.toString(), l());
+        e.set("series_" + _.toString(), getShort());
+        e.set("series_add_level_" + _.toString(), getShort());
       }
       n.push(e);
     }
@@ -2904,52 +2928,52 @@ var Z = {
   },
   MSG_FSL_FRAGMENT_INFO: function () {
     var t = new UtilMapping();
-    t.set("sui_pian", E());
+    t.set("sui_pian", getLong());
     return t;
   },
   MSG_FSL_DRAW_INCARNATION_INFO: function () {
     var t = new UtilMapping();
-    t.set("dir", c());
-    var e = l();
+    t.set("dir", getByte());
+    var e = getShort();
     t.set("count", e);
     for (var n = 0; n < e; ++n) {
-      t.set("iid_" + n, d());
-      t.set("name_" + n, d());
-      t.set("attrib_" + n, d());
-      t.set("value_" + n, E());
+      t.set("iid_" + n, getByteString());
+      t.set("name_" + n, getByteString());
+      t.set("attrib_" + n, getByteString());
+      t.set("value_" + n, getLong());
     }
     return t;
   },
   MSG_FSL_INCANATION_ATTRIB: function () {
     var t = new UtilMapping();
-    t.set("type", c());
-    t.set("name", d());
-    t.set("intimacy", E());
-    t.set("attrib", d());
-    t.set("basic_value", E());
-    t.set("guard_value", E());
-    t.set("full_guard_value", E());
+    t.set("type", getByte());
+    t.set("name", getByteString());
+    t.set("intimacy", getLong());
+    t.set("attrib", getByteString());
+    t.set("basic_value", getLong());
+    t.set("guard_value", getLong());
+    t.set("full_guard_value", getLong());
     return t;
   },
   MSG_VENDUE_REFRESH_ITEMS: function () {
     var t = new UtilMapping();
-    t.set("total_pages", l());
-    t.set("depot_type", c());
-    t.set("open_window", c());
-    for (var e = [], n = c(), i = 1; i <= n; ++i) {
+    t.set("total_pages", getShort());
+    t.set("depot_type", getByte());
+    t.set("open_window", getByte());
+    for (var e = [], n = getByte(), i = 1; i <= n; ++i) {
       var s = new UtilMapping(),
-        r = l();
+        r = getShort();
       s.set("pos", r);
-      s.set("owner", d());
-      s.set("time_left", E());
-      s.set("cur_price", E());
-      s.set("exclusive_price", E());
-      s.set("basic_price", E());
-      s.set("vendue_iid", d());
-      s.set("merch_type", c());
-      s.set("vendue_times", E());
-      s.set("last_venduer", d());
-      s.set("attention_id", d());
+      s.set("owner", getByteString());
+      s.set("time_left", getLong());
+      s.set("cur_price", getLong());
+      s.set("exclusive_price", getLong());
+      s.set("basic_price", getLong());
+      s.set("vendue_iid", getByteString());
+      s.set("merch_type", getByte());
+      s.set("vendue_times", getLong());
+      s.set("last_venduer", getByteString());
+      s.set("attention_id", getByteString());
       var _ = new UtilMapping();
       _.set("pos", r);
       m(s, _);
@@ -2960,25 +2984,25 @@ var Z = {
   },
   MSG_VENDUE_REFRESH_PETS: function () {
     var t = new UtilMapping();
-    t.set("total_pages", l());
-    t.set("depot_type", c());
-    t.set("open_window", c());
-    t.set("clear_flag", c());
-    for (var e = [], n = c(), i = 1; i <= n; ++i) {
+    t.set("total_pages", getShort());
+    t.set("depot_type", getByte());
+    t.set("open_window", getByte());
+    t.set("clear_flag", getByte());
+    for (var e = [], n = getByte(), i = 1; i <= n; ++i) {
       var s = new UtilMapping(),
-        r = l();
+        r = getShort();
       s.set("pos", r);
-      s.set("owner", d());
-      s.set("time_left", E());
-      s.set("cur_price", E());
-      s.set("exclusive_price", E());
-      s.set("basic_price", E());
-      s.set("vendue_iid", d());
-      s.set("raw_skill", c());
-      s.set("merch_type", c());
-      s.set("vendue_times", E());
-      s.set("last_venduer", d());
-      s.set("attention_id", d());
+      s.set("owner", getByteString());
+      s.set("time_left", getLong());
+      s.set("cur_price", getLong());
+      s.set("exclusive_price", getLong());
+      s.set("basic_price", getLong());
+      s.set("vendue_iid", getByteString());
+      s.set("raw_skill", getByte());
+      s.set("merch_type", getByte());
+      s.set("vendue_times", getLong());
+      s.set("last_venduer", getByteString());
+      s.set("attention_id", getByteString());
       p(s);
       y(s);
       w(s);
@@ -2990,24 +3014,24 @@ var Z = {
   },
   MSG_VENDUE_REFRESH_SYS: function () {
     var t = new UtilMapping();
-    t.set("total_pages", l());
-    t.set("depot_type", c());
-    t.set("open_window", c());
-    for (var e = gfIsJdDist(), n = [], i = c(), s = 1; s <= i; ++s) {
+    t.set("total_pages", getShort());
+    t.set("depot_type", getByte());
+    t.set("open_window", getByte());
+    for (var e = gfIsJdDist(), n = [], i = getByte(), s = 1; s <= i; ++s) {
       var r = new UtilMapping(),
-        _ = l();
+        _ = getShort();
       r.set("pos", _);
-      r.set("owner", d());
-      r.set("time_left", E());
-      r.set("cur_price", E());
-      r.set("exclusive_price", E());
-      r.set("basic_price", E());
-      r.set("vendue_iid", d());
-      r.set("merch_type", c());
-      r.set("vendue_times", E());
-      r.set("last_venduer", d());
-      r.set("attention_id", d());
-      e || c();
+      r.set("owner", getByteString());
+      r.set("time_left", getLong());
+      r.set("cur_price", getLong());
+      r.set("exclusive_price", getLong());
+      r.set("basic_price", getLong());
+      r.set("vendue_iid", getByteString());
+      r.set("merch_type", getByte());
+      r.set("vendue_times", getLong());
+      r.set("last_venduer", getByteString());
+      r.set("attention_id", getByteString());
+      e || getByte();
       var a = new UtilMapping();
       a.set("pos", _);
       m(r, a);
@@ -3020,54 +3044,54 @@ var Z = {
     return new UtilMapping();
   },
   MSG_VENDUE_OPEN_STORE: function () {
-    for (var t = [], e = E(), n = 1; n <= e; ++n) {
+    for (var t = [], e = getLong(), n = 1; n <= e; ++n) {
       var i = new UtilMapping();
-      i.set("type", c());
-      i.set("name", d());
-      i.set("source", d());
-      i.set("days", l());
-      i.set("price", d());
-      i.set("key_id", d());
-      i.set("has_upgraded", c());
+      i.set("type", getByte());
+      i.set("name", getByteString());
+      i.set("source", getByteString());
+      i.set("days", getShort());
+      i.set("price", getByteString());
+      i.set("key_id", getByteString());
+      i.set("has_upgraded", getByte());
       t.push(i);
     }
     return t;
   },
   MSG_VENDUE_GOT_IT: function () {
-    for (var t = [], e = E(), n = 1; n <= e; ++n) {
+    for (var t = [], e = getLong(), n = 1; n <= e; ++n) {
       var i = new UtilMapping();
-      i.set("key_id", d());
+      i.set("key_id", getByteString());
       t.push(i);
     }
     return t;
   },
   MSG_ATTENTION_STATUS: function () {
     var t = [];
-    d();
-    for (var e = l(), n = 1; n <= e; ++n) {
+    getByteString();
+    for (var e = getShort(), n = 1; n <= e; ++n) {
       var i = new UtilMapping();
-      i.set("attention_id", d());
-      i.set("status", c());
+      i.set("attention_id", getByteString());
+      i.set("status", getByte());
       t.push(i);
     }
     return t;
   },
   MSG_VENDUE_CAN_VENDUE: function () {
     var t = new UtilMapping();
-    t.set("merch_type", c());
-    t.set("id", E());
+    t.set("merch_type", getByte());
+    t.set("id", getLong());
     return t;
   },
   MSG_JD_MALL_BASIC_INFO: function () {
-    for (var t = [], e = l(), n = 0; n < e; n++) {
+    for (var t = [], e = getShort(), n = 0; n < e; n++) {
       var i = new UtilMapping(),
         s = new UtilMapping();
-      i.set("name", d());
-      i.set("goods_type", c());
-      var r = E();
+      i.set("name", getByteString());
+      i.set("goods_type", getByte());
+      var r = getLong();
       i.set("init_price", r);
       i.set("price", r);
-      i.set("coin_type", c());
+      i.set("coin_type", getByte());
       m(i, s);
       t.push(i);
     }
@@ -3075,9 +3099,9 @@ var Z = {
   },
   MSG_JD_MALL_PRICE_INFO: function () {
     var t = new UtilMapping(),
-      e = c(),
-      n = E(),
-      i = l();
+      e = getByte(),
+      n = getLong(),
+      i = getShort();
     if (i <= 0) {
       t.set("cookie", n);
       t.set("count", i);
@@ -3088,31 +3112,31 @@ var Z = {
       t.set("cookie", n);
       t.set("count", i);
       t.set("oper", e);
-      t.set("goods_name_" + s, d());
-      t.set("real_price_" + s, E());
-      t.set("sell_price_" + s, E());
+      t.set("goods_name_" + s, getByteString());
+      t.set("real_price_" + s, getLong());
+      t.set("sell_price_" + s, getLong());
     }
     return t;
   },
   MSG_POPUP_SAFE_TIME: function () {
-    for (var t = new UtilMapping(), e = c(), n = 0; n < e; n++) {
-      t.set("type" + n, c());
-      t.set("safe_time" + n, E());
-      t.set("interval" + n, E());
+    for (var t = new UtilMapping(), e = getByte(), n = 0; n < e; n++) {
+      t.set("type" + n, getByte());
+      t.set("safe_time" + n, getLong());
+      t.set("interval" + n, getLong());
     }
     t.set("count", e);
     return t;
   },
   MSG_MOUNT_INBORN_STONE_LIST: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    var e = c();
+    t.set("id", getLong());
+    var e = getByte();
     e && t.set("clear", TRUE);
-    for (var n = c(), i = [], s = 0; s < n; ++s) {
+    for (var n = getByte(), i = [], s = 0; s < n; ++s) {
       var r = new UtilMapping(),
         _ = new UtilMapping();
       r.set("all_info", e);
-      r.set("pos", c());
+      r.set("pos", getByte());
       m(r, _);
       i.push(r);
     }
@@ -3121,28 +3145,28 @@ var Z = {
   },
   MSG_STALL_NAME: function () {
     var t = new UtilMapping();
-    t.set("server", d());
-    t.set("stall_id", d());
-    t.set("owner_name", d());
-    t.set("stall_name", d());
-    t.set("owner_gid", d());
-    t.set("type", l());
-    t.set("map_name", d());
-    t.set("pos_x", l());
-    t.set("pos_y", l());
-    t.set("id", E());
-    t.set("money", E());
-    t.set("max_money", E());
-    t.set("in_stall", c());
-    t.set("open_dlg", c());
-    t.set("remote_stall", c());
+    t.set("server", getByteString());
+    t.set("stall_id", getByteString());
+    t.set("owner_name", getByteString());
+    t.set("stall_name", getByteString());
+    t.set("owner_gid", getByteString());
+    t.set("type", getShort());
+    t.set("map_name", getByteString());
+    t.set("pos_x", getShort());
+    t.set("pos_y", getShort());
+    t.set("id", getLong());
+    t.set("money", getLong());
+    t.set("max_money", getLong());
+    t.set("in_stall", getByte());
+    t.set("open_dlg", getByte());
+    t.set("remote_stall", getByte());
     return t;
   },
   MSG_STALL_ITEM_INFO: function () {
     var t = [],
-      e = d(),
-      n = c(),
-      i = l();
+      e = getByteString(),
+      n = getByte(),
+      i = getShort();
     if (i <= 0) {
       var s = new UtilMapping();
       s.set("owner_gid", e);
@@ -3154,9 +3178,9 @@ var Z = {
       _.set("owner_gid", e);
       _.set("sign", n);
       _.set("count", i);
-      _.set("price", E());
-      _.set("exhibit", c());
-      var o = c();
+      _.set("price", getLong());
+      _.set("exhibit", getByte());
+      var o = getByte();
       _.set("pos", o);
       a.set("pos", o);
       m(_, a);
@@ -3166,8 +3190,8 @@ var Z = {
   },
   MSG_STALL_PET_INFO: function () {
     var t = [],
-      e = d(),
-      n = l();
+      e = getByteString(),
+      n = getShort();
     if (n <= 0) {
       var i = new UtilMapping();
       i.set("owner_gid", e);
@@ -3177,9 +3201,9 @@ var Z = {
       var r = new UtilMapping();
       r.set("owner_gid", e);
       r.set("count", n);
-      r.set("id", E());
-      r.set("price", E());
-      r.set("exhibit", c());
+      r.set("id", getLong());
+      r.set("price", getLong());
+      r.set("exhibit", getByte());
       p(r);
       y(r);
       w(r);
@@ -3190,15 +3214,15 @@ var Z = {
   },
   MSG_REFESH_STALL_LIST: function () {
     var t = new UtilMapping();
-    t.set("owner_id", E());
-    t.set("sign", c());
+    t.set("owner_id", getLong());
+    t.set("sign", getByte());
     return t;
   },
   MSG_STALL_LIST_REMOTE: function () {
     var t = [],
-      e = l(),
-      n = l(),
-      i = l();
+      e = getShort(),
+      n = getShort(),
+      i = getShort();
     if (i <= 0) return [new UtilMapping()];
     for (var s = 0; s < i; ++s) {
       var r = new UtilMapping();
@@ -3206,22 +3230,22 @@ var Z = {
       r.set("total_page", e);
       r.set("cur_page", n);
       r.set("count", i);
-      r.set("server", d());
-      r.set("stall_id", d());
-      r.set("auto_stall", c());
-      r.set("stall_name", d());
-      r.set("stall_time", E());
+      r.set("server", getByteString());
+      r.set("stall_id", getByteString());
+      r.set("auto_stall", getByte());
+      r.set("stall_name", getByteString());
+      r.set("stall_time", getLong());
       t.push(r);
     }
     return t;
   },
   MSG_SEARCH_RESULT_REMOTE: function () {
     var t = [],
-      e = E(),
-      n = l(),
-      i = l(),
-      s = l(),
-      r = l();
+      e = getLong(),
+      n = getShort(),
+      i = getShort(),
+      s = getShort(),
+      r = getShort();
     if (r <= 0) {
       var _ = new UtilMapping();
       _.set("index", 0);
@@ -3240,19 +3264,19 @@ var Z = {
       o.set("total_page", i);
       o.set("cur_page", s);
       o.set("count", r);
-      o.set("show_normal", c());
-      o.set("server", d());
-      o.set("stall_id", d());
-      o.set("automatism_stall", c());
-      o.set("id", E());
-      o.set("icon", E());
-      o.set("name", d());
-      o.set("amount", E());
-      o.set("price", E());
-      o.set("for_show", c());
-      o.set("level", l());
-      o.set("durability_full", c());
-      o.set("item_polar", c());
+      o.set("show_normal", getByte());
+      o.set("server", getByteString());
+      o.set("stall_id", getByteString());
+      o.set("automatism_stall", getByte());
+      o.set("id", getLong());
+      o.set("icon", getLong());
+      o.set("name", getByteString());
+      o.set("amount", getLong());
+      o.set("price", getLong());
+      o.set("for_show", getByte());
+      o.set("level", getShort());
+      o.set("durability_full", getByte());
+      o.set("item_polar", getByte());
       t.push(o);
     }
     return t;
@@ -3260,15 +3284,15 @@ var Z = {
   MSG_REMOTE_STALL_ITEM_INFO: function () {
     var t = new UtilMapping(),
       e = new UtilMapping();
-    t.set("search_type", c());
-    t.set("server", d());
+    t.set("search_type", getByte());
+    t.set("server", getByteString());
     m(t, e);
     return t;
   },
   MSG_REMOTE_STALL_PET_INFO: function () {
     var t = new UtilMapping();
-    t.set("server", d());
-    t.set("id", E());
+    t.set("server", getByteString());
+    t.set("id", getLong());
     p(t);
     y(t);
     w(t);
@@ -3277,120 +3301,120 @@ var Z = {
   },
   MSG_UPDATE_STALL_GOODS_REMOTE: function () {
     var t = new UtilMapping();
-    t.set("type", c());
-    t.set("server", d());
-    t.set("stall_id", d());
-    t.set("goods_id", E());
-    t.set("amount", E());
+    t.set("type", getByte());
+    t.set("server", getByteString());
+    t.set("stall_id", getByteString());
+    t.set("goods_id", getLong());
+    t.set("amount", getLong());
     return t;
   },
   MSG_STALL_INPUT_PRICE: function () {
     var t = new UtilMapping();
-    t.set("max", E());
-    t.set("only_show", c());
-    t.set("id", E());
-    t.set("tip", d());
+    t.set("max", getLong());
+    t.set("only_show", getByte());
+    t.set("id", getLong());
+    t.set("tip", getByteString());
     return t;
   },
   MSG_SHOW_SALE_LOG: function () {
-    for (var t = [], e = (c(), d()), n = c(), i = 0; i < n; ++i) {
+    for (var t = [], e = (getByte(), getByteString()), n = getByte(), i = 0; i < n; ++i) {
       var s = new UtilMapping();
-      s.set("time", E());
+      s.set("time", getLong());
       s.set("total_cash", e);
-      s.set("name", d());
-      s.set("amount", d());
-      s.set("money", d());
+      s.set("name", getByteString());
+      s.set("amount", getByteString());
+      s.set("money", getByteString());
       t.push(s);
     }
     return t;
   },
   MSG_STALL_REMOVE_GOODS: function () {
     var t = new UtilMapping();
-    t.set("owner_gid", d());
-    t.set("goods_id", E());
+    t.set("owner_gid", getByteString());
+    t.set("goods_id", getLong());
     return t;
   },
   MSG_SUBMIT_CONFIRM_DLG: function () {
     var t = new UtilMapping();
     t.set("content", u());
-    t.set("flag", c());
+    t.set("flag", getByte());
     return t;
   },
   MSG_SYNC_BAN_WORDS: function () {
     var t = new UtilMapping(),
-      e = l();
+      e = getShort();
     t.set("filter_add_count", e);
-    for (var n = 0; n < e; n++) t.set("filter_add_" + n, d());
-    var i = l();
+    for (var n = 0; n < e; n++) t.set("filter_add_" + n, getByteString());
+    var i = getShort();
     t.set("filter_del_count", i);
-    for (var s = 0; s < i; s++) t.set("filter_del_" + s, d());
-    e = l();
+    for (var s = 0; s < i; s++) t.set("filter_del_" + s, getByteString());
+    e = getShort();
     t.set("send_add_count", e);
-    for (var r = 0; r < e; r++) t.set("send_add_" + r, d());
-    i = l();
+    for (var r = 0; r < e; r++) t.set("send_add_" + r, getByteString());
+    i = getShort();
     t.set("send_del_count", i);
-    for (var _ = 0; _ < i; _++) t.set("send_del_" + _, d());
-    e = l();
+    for (var _ = 0; _ < i; _++) t.set("send_del_" + _, getByteString());
+    e = getShort();
     t.set("strict_add_count", e);
-    for (var a = 0; a < e; a++) t.set("strict_add_" + a, d());
-    i = l();
+    for (var a = 0; a < e; a++) t.set("strict_add_" + a, getByteString());
+    i = getShort();
     t.set("strict_del_count", i);
-    for (var o = 0; o < i; o++) t.set("strict_del_" + o, d());
-    e = l();
+    for (var o = 0; o < i; o++) t.set("strict_del_" + o, getByteString());
+    e = getShort();
     t.set("ignore_add_count", e);
-    for (var c = 0; c < e; c++) t.set("ignore_add_" + c, d());
-    i = l();
+    for (var c = 0; c < e; c++) t.set("ignore_add_" + c, getByteString());
+    i = getShort();
     t.set("ignore_del_count", i);
-    for (var E = 0; E < i; E++) t.set("ignore_del_" + E, d());
+    for (var E = 0; E < i; E++) t.set("ignore_del_" + E, getByteString());
     return t;
   },
   MSG_STALL_GOODS_PRICE: function () {
     var t = new UtilMapping();
-    t.set("owner_gid", d());
-    t.set("id", E());
-    t.set("remote_stall", c());
-    t.set("price", E());
+    t.set("owner_gid", getByteString());
+    t.set("id", getLong());
+    t.set("remote_stall", getByte());
+    t.set("price", getLong());
     return t;
   },
   MSG_MOBILE_COMMON_RED_POINT: function () {
-    for (var t = [], e = c(), n = 0; n < e; n++) {
+    for (var t = [], e = getByte(), n = 0; n < e; n++) {
       var i = new UtilMapping();
-      i.set("task_type", c());
-      i.set("red_point", c());
+      i.set("task_type", getByte());
+      i.set("red_point", getByte());
       t.push(i);
     }
     return t;
   },
   MSG_LUCKY_UPGRADE_PROP: function () {
     var t = new UtilMapping();
-    t.set("item_unique", E());
-    t.set("pink_luck_value", E());
-    t.set("gold_luck_value", E());
+    t.set("item_unique", getLong());
+    t.set("pink_luck_value", getLong());
+    t.set("gold_luck_value", getLong());
     return t;
   },
   MSG_PICTURE_DIALOG: function () {
     var t = new UtilMapping();
-    t.set("id", E());
-    t.set("setting", l());
-    t.set("name", d());
-    t.set("portrait", E());
-    t.set("pic_no", l());
+    t.set("id", getLong());
+    t.set("setting", getShort());
+    t.set("name", getByteString());
+    t.set("portrait", getLong());
+    t.set("pic_no", getShort());
     t.set("content", u());
     N(t);
     return t;
   },
   MSG_C_END_ROUND: function () {
     var t = new UtilMapping();
-    t.set("cur_round", l());
-    t.set("cookie", E());
+    t.set("cur_round", getShort());
+    t.set("cookie", getLong());
     return t;
   },
   MSG_YEAR_BOOK_2019: function () {
-    for (var t = new UtilMapping(), e = c(), n = 0; n < e; n++) {
-      var i = c();
-      t.set(i, d());
+    for (var t = new UtilMapping(), e = getByte(), n = 0; n < e; n++) {
+      var i = getByte();
+      t.set(i, getByteString());
     }
-    t.set("qr_code", d());
+    t.set("qr_code", getByteString());
     return t;
   },
 };
